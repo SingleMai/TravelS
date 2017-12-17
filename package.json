@@ -1,11 +1,13 @@
 {
-  "name": "TravelS",
+  "name": "travels",
   "version": "1.0.0",
   "description": "",
   "private": true,
   "dependencies": {
     "egg": "^2.0.0",
-    "egg-scripts": "^2.1.0"
+    "egg-scripts": "^2.1.0",
+    "egg-sequelize": "^3.1.0",
+    "mysql2": "^1.5.1"
   },
   "devDependencies": {
     "autod": "^3.0.1",
@@ -13,8 +15,10 @@
     "egg-bin": "^4.3.5",
     "egg-ci": "^1.8.0",
     "egg-mock": "^3.13.0",
+    "egg-validate": "^1.0.0",
     "eslint": "^4.11.0",
     "eslint-config-egg": "^5.1.0",
+    "stream-wormhole": "^1.0.3",
     "webstorm-disable-index": "^1.2.0"
   },
   "engines": {

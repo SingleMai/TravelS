@@ -1,5 +1,6 @@
 'use strict';
 module.exports = app => {
-  app.router.get('/news/list', app.controller.news.list);
-  app.router.get('/news/detail', app.controller.news.detail);
+  const { router } = app;
+  const controller = app.controller;
+  router.get('/api/carousel', controller.carousel.getBySite);
 };

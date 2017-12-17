@@ -1,0 +1,93 @@
+'use strict';
+
+module.exports = app => {
+  const { STRING, INTEGER, DATE } = app.Sequelize;
+
+  const Users = app.model.define('users', {
+    id: {
+      type: INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    head: {
+      type: STRING(50),
+      allowNull: false,
+    },
+    name: {
+      type: STRING(30),
+      unique: true,
+      allowNull: false,
+    },
+    sex: {
+      type: INTEGER,
+      allowNull: false,
+    },
+    phone: {
+      type: INTEGER,
+      allowNull: false,
+    },
+    wetchat: {
+      type: STRING(30),
+      unique: true,
+      allowNull: false,
+    },
+    blog: {
+      type: STRING(30),
+      unique: true,
+      allowNull: false,
+    },
+    email: {
+      type: STRING(30),
+      unique: true,
+      allowNull: false,
+    },
+    instroduction: {
+      type: STRING,
+      allowNull: false,
+    },
+    has_id_card: {
+      type: INTEGER,
+      allowNull: false,
+    },
+    has_edu_card: {
+      type: INTEGER,
+      allowNull: false,
+    },
+    has_guide_card: {
+      type: INTEGER,
+      allowNull: false,
+    },
+    has_drive_card: {
+      type: INTEGER,
+      allowNull: false,
+    },
+    has_shop: {
+      type: INTEGER,
+      allowNull: false,
+    },
+    born: {
+      type: DATE,
+      allowNull: false,
+    },
+    city: {
+      type: STRING(30),
+      allowNull: false,
+    },
+    school: {
+      type: STRING(30),
+      allowNull: false,
+    },
+    recommend_id: {
+      type: INTEGER,
+      allowNull: false,
+    },
+    time: {
+      type: DATE,
+      allowNull: false,
+    },
+  }, {
+    tableName: 'users',
+    timestamps: false,
+  });
+  return Users;
+};

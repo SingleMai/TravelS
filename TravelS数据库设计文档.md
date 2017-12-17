@@ -4,7 +4,7 @@
 |-----|------|------|--|
 | id | int(15)| PRIMARYKEY<br>AUTOINCREMENT |
 | name | varchar(16) |  | 管理员名称 |
-| account | varchar(16) | PRIMARYKEY | 登录账号 |
+| account | varchar(16) | unique | 登录账号 |
 | password | varchar(16) |  | 加密后的密码字段 |
 | permission | int(10) |  | 1： 总管理员<br>2: 特殊管理员<br>3. 一般管理员 |
 
@@ -51,7 +51,7 @@
 | id | int(15) | PRIMARYKEY<br>AUTOINCREMENT | |
 | travels_id | int(15) | ForeignKey | 指向`travels`的id |
 | commenter | int(15) | ForeignKey | 评论人id,指向`users`的id |
-| reply_id | int(15) | ForeignKey | 回复人id,指向`users`的id。缺省为0 |
+| replyer | int(15) | ForeignKey | 回复人id,指向`users`的id。缺省为0 |
 | content | text |  | 评论内容 |
 | time | time |  | 评论时间 |
 
@@ -60,12 +60,12 @@
 |-----|------|---------|------|
 | id | int(15) | PRIMARYKEY<br>AUTOINCREMENT | |
 | head | varchar(30) | | 头像文件名 |
-| name | varchar(30) | | |
-| sex | int(2) |  | 0： 保密<br>1: 男<br>2: 女 |
+| name | varchar(30) | unique | |
+| sex | tingyint(2) |  | 0： 保密<br>1: 男<br>2: 女 |
 | phone | int(30) | unique | 电话 |
 | wetchat | varchar(30) | unique | 微信号 |
 | blog | varchar(30) | unique | 微博 |
-| email | varchar(30) |  | 邮箱 |
+| email | varchar(30) | unique | 邮箱 |
 | instroduction | text |  | 自我介绍 |
 | has_id_card | tinyint(2) |  | 根据`user_card`判断是否通过身份证认证 |
 | has_edu_card | tinyint(2) |  | 根据`user_card`判断是否通过学历认证 |

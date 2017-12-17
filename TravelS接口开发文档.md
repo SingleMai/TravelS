@@ -23,6 +23,7 @@
 | 返回参数 | 类型  | 描述|
 |--------|-----|--------|
 | data | {id, account, name, permission} |  |
+| token | string |  |
 
 ### 获取管理员列表
 接口： `/backen/admin`
@@ -71,18 +72,6 @@
 |--------|-----|--------|
 |  |  |  |
 
-### 修改管理员信息
-接口： `/backen/admin/:id`
-类型： PUT
-| 接受参数 | 类型 | 必填 | 描述|
-|--------|-----|--------|-----|
-| name | String | Y | 名字 |
-| permission | Number | Y | 权限id |
-
-| 返回参数 | 类型  | 描述|
-|--------|-----|--------|
-|  |  |  |
-
 ## 轮播图功能
 ### 轮播图获取
 接口： `/api/carousel`
@@ -100,11 +89,12 @@
 类型： POST
 | 接受参数 | 类型 | 必填 | 描述 |
 |--------|-----|--------|-----|
-| title | String | Y | 轮播图标题 |
+| title | String | N | 轮播图标题 |
 | content | String | N | 轮播图描述 |
-| link | String | N | 轮播图跳转链接 |
+| link | String | Y| 轮播图跳转链接 |
 | carousel | File | Y | 轮播图图片 |
-| site | Number | Y | 区分页面的轮播图 |
+| weight | Number | Y | 权重 |
+| site | Number | N | 区分页面的轮播图 |
 
 | 返回参数 | 类型  | 描述|
 |--------|-----|--------|
