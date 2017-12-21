@@ -1,5 +1,6 @@
 'use strict';
 
+
 module.exports = app => {
   const { STRING, INTEGER, DATE } = app.Sequelize;
 
@@ -89,5 +90,6 @@ module.exports = app => {
     tableName: 'users',
     timestamps: false,
   });
+  Users.hasOne(app.model.Users);
   return Users;
 };

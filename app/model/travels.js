@@ -1,6 +1,8 @@
 'use strict';
 
+
 module.exports = app => {
+  const Users = require('./users');
   const { STRING, INTEGER, DATE } = app.Sequelize;
 
   const Travels = app.model.define('travels', {
@@ -29,5 +31,6 @@ module.exports = app => {
     tableName: 'travels',
     timestamps: false,
   });
+  Travels.belongsTo(app.model.Users);
   return Travels;
 };
