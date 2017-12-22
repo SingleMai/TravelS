@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2017-12-21 08:54:14
+Date: 2017-12-23 00:21:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -184,36 +184,25 @@ INSERT INTO `servies_type` VALUES ('6', '当地特产');
 INSERT INTO `servies_type` VALUES ('7', '租车');
 
 -- ----------------------------
--- Table structure for `travels_circle`
+-- Table structure for `travels`
 -- ----------------------------
-DROP TABLE IF EXISTS `travels_circle`;
-CREATE TABLE `travels_circle` (
+DROP TABLE IF EXISTS `travels`;
+CREATE TABLE `travels` (
   `id` int(15) NOT NULL AUTO_INCREMENT,
   `user_id` int(15) NOT NULL,
   `content` text NOT NULL,
-  `views` int(10) NOT NULL DEFAULT '0',
+  `views` int(10) NOT NULL,
   `time` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of travels_circle
+-- Records of travels
 -- ----------------------------
-
--- ----------------------------
--- Table structure for `travels_circle_likes`
--- ----------------------------
-DROP TABLE IF EXISTS `travels_circle_likes`;
-CREATE TABLE `travels_circle_likes` (
-  `id` int(15) NOT NULL AUTO_INCREMENT,
-  `travels_id` int(15) NOT NULL,
-  `user_id` int(15) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of travels_circle_likes
--- ----------------------------
+INSERT INTO `travels` VALUES ('1', '1', 'aa', '0', '2017-12-20 22:58:47');
+INSERT INTO `travels` VALUES ('2', '2', 'bb', '0', '2017-12-22 23:41:41');
 
 -- ----------------------------
 -- Table structure for `travels_comment`
@@ -244,11 +233,29 @@ CREATE TABLE `travels_img` (
   `order` int(10) NOT NULL COMMENT '图片展示的顺序，从小到大排序',
   `time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of travels_img
 -- ----------------------------
+INSERT INTO `travels_img` VALUES ('1', '1', 'AA', '0', '2017-12-20 23:45:03');
+INSERT INTO `travels_img` VALUES ('2', '1', 'BB', '1', '2017-12-23 00:00:29');
+
+-- ----------------------------
+-- Table structure for `travels_likes`
+-- ----------------------------
+DROP TABLE IF EXISTS `travels_likes`;
+CREATE TABLE `travels_likes` (
+  `id` int(15) NOT NULL AUTO_INCREMENT,
+  `travels_id` int(15) NOT NULL,
+  `user_id` int(15) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of travels_likes
+-- ----------------------------
+INSERT INTO `travels_likes` VALUES ('1', '1', '1');
 
 -- ----------------------------
 -- Table structure for `users`
@@ -260,7 +267,7 @@ CREATE TABLE `users` (
   `name` varchar(30) NOT NULL,
   `sex` int(2) NOT NULL COMMENT ' 0： 保密<br>1: 男<br>2: 女',
   `phone` int(30) NOT NULL,
-  `wetchar` varchar(30) NOT NULL,
+  `wetchat` varchar(30) NOT NULL,
   `blog` varchar(30) NOT NULL,
   `email` varchar(30) NOT NULL,
   `instroduction` text NOT NULL,
@@ -277,15 +284,17 @@ CREATE TABLE `users` (
   `time` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `phone` (`phone`),
-  UNIQUE KEY `wetchar` (`wetchar`),
+  UNIQUE KEY `wetchar` (`wetchat`),
   UNIQUE KEY `blog` (`blog`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
+INSERT INTO `users` VALUES ('1', 'aaa', 'singlemai', '1', '13164791', '', '', '', 'a', '0', '0', '0', '0', '0', '2017-12-13', 'a', '', '', '0', '2017-12-20 22:58:34');
+INSERT INTO `users` VALUES ('2', 'bbb', 'single', '2', '46497612', '13164641', '1', '1', 'b', '0', '0', '0', '0', '0', '2017-12-19', 'a', '', '', '0', '2017-12-11 23:42:43');
 
 -- ----------------------------
 -- Table structure for `user_card`
