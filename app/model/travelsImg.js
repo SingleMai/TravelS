@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = app => {
-  const { INTEGER } = app.Sequelize;
+  const { INTEGER, STRING } = app.Sequelize;
 
   const TravelsImg = app.model.define('travels_img', {
     id: {
@@ -13,8 +13,8 @@ module.exports = app => {
       type: INTEGER,
       allowNull: false,
     },
-    user_id: {
-      type: INTEGER,
+    travels_img: {
+      type: STRING,
       allowNull: false,
     },
   }, {

@@ -1,6 +1,5 @@
 'use strict';
 
-
 module.exports = app => {
   const { STRING, INTEGER, DATE } = app.Sequelize;
 
@@ -25,22 +24,18 @@ module.exports = app => {
     },
     phone: {
       type: INTEGER,
-      allowNull: false,
     },
     wetchat: {
       type: STRING(30),
       unique: true,
-      allowNull: false,
     },
     blog: {
       type: STRING(30),
       unique: true,
-      allowNull: false,
     },
     email: {
       type: STRING(30),
       unique: true,
-      allowNull: false,
     },
     instroduction: {
       type: STRING,
@@ -90,6 +85,10 @@ module.exports = app => {
     tableName: 'users',
     timestamps: false,
   });
-  Users.hasOne(app.model.Users);
+
+  Users.associate = () => {
+    app.model.Users.hasOne(app.model.Travels);
+  };
+
   return Users;
 };

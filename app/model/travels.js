@@ -1,8 +1,6 @@
 'use strict';
 
-
 module.exports = app => {
-  const Users = require('./users');
   const { STRING, INTEGER, DATE } = app.Sequelize;
 
   const Travels = app.model.define('travels', {
@@ -10,10 +8,6 @@ module.exports = app => {
       type: INTEGER,
       autoIncrement: true,
       primaryKey: true,
-    },
-    user_id: {
-      type: INTEGER,
-      allowNull: false,
     },
     content: {
       type: STRING,
@@ -31,6 +25,10 @@ module.exports = app => {
     tableName: 'travels',
     timestamps: false,
   });
-  Travels.belongsTo(app.model.Users);
+
+  Travels.associate = () => {
+    app.model.Travels.belongsTo(app.model.Users);
+  };
+
   return Travels;
 };
