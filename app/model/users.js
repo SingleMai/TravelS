@@ -88,6 +88,7 @@ module.exports = app => {
 
   Users.associate = () => {
     app.model.Users.hasOne(app.model.Travels);
+    app.model.Users.hasMany(app.model.TravelsLikes);
   };
 
   return Users;

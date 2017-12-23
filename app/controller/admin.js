@@ -1,6 +1,7 @@
 'use strict';
 
 const Controller = require('../core/baseController');
+const errCode = require('../core/errCode');
 class AdminController extends Controller {
   // GET /backen/admin
   async token() {
@@ -23,12 +24,12 @@ class AdminController extends Controller {
     try {
       ctx.validate(rule, ctx.params);
     } catch (err) {
-      this.error(-1, 'params invalid/empty');
+      this.error(errCode.PARAMS_INVALID_EMPTY);
     }
     const { id } = ctx.params;
     const data = await service.admin.getOne(id);
     if (data === null) {
-      this.error(2, 'not found');
+      this.error(errCode.NOT_FOUND);
     } else {
       this.success(data);
     }
@@ -45,12 +46,12 @@ class AdminController extends Controller {
     try {
       ctx.validate(rule);
     } catch (err) {
-      this.error(-1, 'params invalid/empty');
+      this.error(errCode.PARAMS_INVALID_EMPTY);
     }
     const { name, account, password, permission } = ctx.request.body;
     const admin = await service.admin.getOneByAccount(account);
     if (admin) {
-      this.error('-2', 'object exits: account exites');
+      this.error(errCode.OBJECT_EXITS);
     }
     const result = await service.admin.create({
       name,
@@ -69,7 +70,7 @@ class AdminController extends Controller {
     try {
       ctx.validate(paramsRule, ctx.params);
     } catch (err) {
-      this.error(-1, 'params invalid/empty');
+      this.error(errCode.PARAMS_INVALID_EMPTY);
     }
     const { id } = ctx.params;
     await service.admin.del(id);

@@ -122,7 +122,7 @@
 
 | 返回参数 | 类型  | 描述 |
 |--------|-----|--------|
-| travels | [{<br>user: {user_id, name, head},<br>content: string,<br>imgs: [url],<br>likes: number,<br>views: number,<br>isLikes,<br>time: time<br>}] |  |
+| travels | [{<br>user: {id, name, head},<br>content: string,<br>imgs: [url],<br>likes: number,<br>views: number,<br>isLike,<br>time: time<br>}] |  |
 
 ### Travels圈详情（不含评论）
 接口： `/api/travels/:id`
@@ -133,7 +133,7 @@
 
 | 返回参数 | 类型  | 描述|
 |--------|-----|--------|
-| {<br>id,<br>user: {userId, name, head},<br>content,<br>imgs: [url],<br>likes： [userId, name],<br>views: number,<br>time<br>} |  |  |
+| {<br>id,<br>user: {id, name, head},<br>content,<br>imgs: [url],<br>likes： [{userId, name}],<br>views: number,<br>isLike,<br>time<br>} |  |  |
 
 ### 创建Travels圈
 接口： `/api/travels`

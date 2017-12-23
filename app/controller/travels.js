@@ -1,6 +1,7 @@
 'use strict';
 
 const Controller = require('../core/baseController');
+const errCode = require('../core/errCode');
 
 class TravelsController extends Controller {
   // POST /backen/carousel
@@ -19,12 +20,23 @@ class TravelsController extends Controller {
       const result = await service.travels.getList(parseInt(limit), parseInt(offset));
       this.success(result);
     } catch (err) {
-      this.error(-1, 'params invalid/empty');
+      this.error(errCode.PARAMS_INVALID_EMPTY);
     }
   }
   // GET api/travels/:id
   async getOne() {
-    
+    const { ctx, service } = this;
+    const rule = {
+      id: 'id',
+    };
+    try {
+      ctx.validate(rule, ctx.params);
+      const { id } = ctx.params;
+      const result = await service.travels.getOne(id);
+      this.success(result);
+    } catch (err) {
+      this.error(errCode.PARAMS_INVALID_EMPTY);
+    }
   }
 
 }

@@ -28,6 +28,7 @@ module.exports = app => {
 
   Travels.associate = () => {
     app.model.Travels.belongsTo(app.model.Users);
+    app.model.Travels.hasMany(app.model.TravelsLikes);
   };
 
   return Travels;

@@ -9,17 +9,15 @@ module.exports = app => {
       autoIncrement: true,
       primaryKey: true,
     },
-    travels_id: {
-      type: INTEGER,
-      allowNull: false,
-    },
-    user_id: {
-      type: INTEGER,
-      allowNull: false,
-    },
   }, {
     tableName: 'travels_likes',
     timestamps: false,
   });
+
+  TravelsLikes.associate = () => {
+    app.model.TravelsLikes.belongsTo(app.model.Users);
+    app.model.TravelsLikes.belongsTo(app.model.Travels);
+  };
+
   return TravelsLikes;
 };

@@ -3,6 +3,7 @@
 const path = require('path');
 const fs = require('fs');
 const Controller = require('../core/baseController');
+const errCode = require('../core/errCode');
 const sendToWormhole = require('stream-wormhole');
 const { isPic, getDateTime } = require('../core/utils');
 
@@ -28,7 +29,7 @@ class CarouselController extends Controller {
       ctx.validate(rule, stream.fields);
     } catch (err) {
       await sendToWormhole(stream);
-      this.error(-1, 'params invalid/empty');
+      this.error(errCode.PARAMS_INVALID_EMPTY);
     }
     const data = stream.fields;
     data.carousel = name;
@@ -38,7 +39,7 @@ class CarouselController extends Controller {
     const hadExits = await service.carousel.getCarouselByWeight(data.weight, data.site);
     if (hadExits !== null) {
       await sendToWormhole(stream);
-      this.error(-2, 'object exits: weight is unique');
+      this.error(errCode.OBJECT_EXITS);
     }
     await service.carousel.create(data);
     const filePath = path.join(__dirname, '../../app/public/carousel');
@@ -54,7 +55,7 @@ class CarouselController extends Controller {
     try {
       ctx.validate(paramsRule, ctx.params);
     } catch (err) {
-      this.error(-1, 'params invalid/empty');
+      this.error(errCode.PARAMS_INVALID_EMPTY);
     }
     const { id } = ctx.params;
     await service.carousel.del(id);
@@ -70,7 +71,7 @@ class CarouselController extends Controller {
     try {
       ctx.validate(rule);
     } catch (err) {
-      this.error(-1, 'params invalid/empty');
+      this.error(errCode.PARAMS_INVALID_EMPTY);
     }
     const site = ctx.request.body.id ? ctx.request.body.id : 1;
     const data = await service.carousel.getBySite(site);

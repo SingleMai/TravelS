@@ -3,19 +3,40 @@
 const Service = require('egg').Service;
 
 class TravelsLikesService extends Service {
-  async getLikesNum(travels_id) {
+  // 某一travels圈得到的点赞列表
+  async getLikesList(travel_id) {
+    const list = await this.ctx.model.TravelsLikes.findAll({
+      attributes: [],
+      where: {
+        travel_id,
+      },
+      include: [
+        {
+          model: this.ctx.model.Users,
+          attributes: ['id', 'name'],
+        },
+      ],
+    });
+    const arr = [];
+    for (const item of list) {
+      arr.push(item.user);
+    }
+    return arr;
+  }
+
+  async getLikesNum(travel_id) {
     const num = await this.ctx.model.TravelsLikes.count({
       where: {
-        travels_id,
+        travel_id,
       },
     });
     return num;
   }
 
-  async isLikes(travels_id, user_id) {
+  async isLikes(travel_id, user_id) {
     const isLikes = await this.ctx.model.TravelsLikes.findOne({
       where: {
-        travels_id,
+        travel_id,
         user_id,
       },
     });

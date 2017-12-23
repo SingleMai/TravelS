@@ -33,15 +33,15 @@
 | 字段 | 类型 | 属性 | 说明 |
 |-----|------|---------|------|
 | id | int(15) | PRIMARYKEY<br>AUTOINCREMENT | |
-| travels_id | int(15) | ForeignKey | 指向`travels`的id |
+| travel_id | int(15) | ForeignKey | 指向`travels`的id |
 | user_id | int(15) | ForeignKey | 指向`users`的id |
 
 ### tranvels_img 保存TravelS的图片信息
 | 字段 | 类型 | 属性 | 说明 |
 |-----|------|---------|------|
 | id | int(15) | PRIMARYKEY<br>AUTOINCREMENT | |
-| travels_id | int(15) | ForeignKey | 指向`travels`表的id |
-| travels_img | varchar(30) |  | 图片文件名 |
+| travel_id | int(15) | ForeignKey | 指向`travels`表的id |
+| travel_img | varchar(30) |  | 图片文件名 |
 | order | int(10) | 1-9 | 图片展示的顺序，从小到大排序 |
 | time | time |  | 上传时间 |
 
