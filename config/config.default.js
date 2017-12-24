@@ -7,6 +7,11 @@ module.exports = appInfo => {
 
   config.keys = appInfo.name + '_1513178907746_5673';
 
+  // 修改请求表单的大小
+  config.bodyParser = {
+    formLimit: '10mb',
+  };
+
   config.sequelize = sequelizeConfig;
 
   // 加载 errorHandler 中间件

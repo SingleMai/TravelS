@@ -16,7 +16,7 @@ class CarouselController extends Controller {
     if (!isPic(stream)) { // 判断是否图片类型
       // 必须将上传的文件流消费掉，要不然浏览器响应会卡死
       await sendToWormhole(stream);
-      this.error(-3, 'files type invalid');
+      this.error(errCode.FILES_TYPE_INVALID);
     }
     const rule = {
       title: { type: 'string', required: false },

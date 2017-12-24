@@ -7,3 +7,6 @@
 | -1 | params invalid/empty | 参数非法或为空 |
 | -2 | object exits | 将要创建的内容已存在 |
 | -3 | files type invalid | 文件类型错误 |
+| -4 | upload file error | 上传文件失败 |
+| -5 | havent choose files | 未选择文件 |
+| -6 | save files error | 保存文件失败 |

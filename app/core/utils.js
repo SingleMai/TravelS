@@ -46,7 +46,7 @@ utils.isPic = (...list) => {
 };
 
 // 将数据库获取到的数组对象中的特定键，转化为数组
-utils.arrObjToArr = (list, key) => {
+utils.arrObj2Arr = (list, key) => {
   const arr = [];
   for (const item of list) {
     arr.push(item[key]);

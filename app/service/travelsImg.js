@@ -14,6 +14,16 @@ class TravelsImgService extends Service {
     });
     return imgs;
   }
+
+  async create(travels_img, order, travels_id) {
+    const img = await this.ctx.model.TravelsImg.create({
+      travels_id,
+      travels_img,
+      order,
+      time: new Date(),
+    });
+    return img;
+  }
 }
 
 module.exports = TravelsImgService;
