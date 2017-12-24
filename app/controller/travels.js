@@ -116,12 +116,23 @@ class TravelsController extends Controller {
         await service.travelsImg.create(files[i], i, travelId);
       }
     }
-    this.success();
+    this.success(travelId);
   }
 
   // DELETE /api/travels/:id
   async del() {
-    
+    const { ctx, service } = this;
+    const rule = {
+      id: 'id',
+    };
+    try {
+      ctx.validate(rule, ctx.params);
+      const { id } = ctx.params;
+      await service.travels.del(id);
+      this.success();
+    } catch (err) {
+      this.error(errCode.PARAMS_INVALID_EMPTY);
+    }
   }
 }
 module.exports = TravelsController;

@@ -16,14 +16,12 @@ class CarouselService extends Service {
         id,
       },
     });
-    if (result === null) {
-      return;
-    }
+    if (result === null) return;
     const fileName = result.carousel;
     const filePath = path.resolve(__dirname, '../public/carousel');
     fs.unlink(`${filePath}${path.sep}${fileName}`);
     result.destroy();
-    return result;
+    return;
   }
   // 查看是否存在weight
   async getCarouselByWeight(weight, site) {

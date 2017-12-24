@@ -61,6 +61,22 @@ class TravelsService extends Service {
     Object.assign(travel, { isLike });
     return travel;
   }
+
+  async del(id) {
+    const { ctx, service } = this;
+    const result = await ctx.model.Travels.findOne({
+      where: {
+        id,
+      },
+    });
+    if (result === null) return;
+    // 删除图片
+    await service.travelsImg.del(id);
+    // TODO:删除评论
+    // TODO:删除点赞
+    result.destroy();
+    return;
+  }
 }
 
 module.exports = TravelsService;

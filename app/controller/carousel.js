@@ -54,12 +54,12 @@ class CarouselController extends Controller {
     };
     try {
       ctx.validate(paramsRule, ctx.params);
+      const { id } = ctx.params;
+      await service.carousel.del(id);
+      this.success();
     } catch (err) {
       this.error(errCode.PARAMS_INVALID_EMPTY);
     }
-    const { id } = ctx.params;
-    await service.carousel.del(id);
-    this.success();
   }
 
   // GET /api/carousel
