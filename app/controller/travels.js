@@ -33,9 +33,9 @@ class TravelsController extends Controller {
       id: 'id',
     };
     try {
-      ctx.validate(rule, ctx.params);
-      const { id } = ctx.params;
-      const result = await service.travels.getOne(id);
+      ctx.validate(rule, ctx.request.query);
+      const { id } = ctx.request.query;
+      const result = await service.travels.getOne(parseInt(id));
       this.success(result);
     } catch (err) {
       this.error(errCode.PARAMS_INVALID_EMPTY);
@@ -119,15 +119,15 @@ class TravelsController extends Controller {
     this.success(travelId);
   }
 
-  // DELETE /api/travels/:id
+  // DELETE /api/travel
   async del() {
     const { ctx, service } = this;
     const rule = {
-      id: 'id',
+      id: 'number',
     };
     try {
-      ctx.validate(rule, ctx.params);
-      const { id } = ctx.params;
+      ctx.validate(rule);
+      const { id } = ctx.request.body;
       await service.travels.del(id);
       this.success();
     } catch (err) {

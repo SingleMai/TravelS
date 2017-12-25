@@ -125,11 +125,11 @@
 | travels | [{<br>user: {id, name, head},<br>content: string,<br>imgs: [url],<br>likes: number,<br>views: number,<br>isLike,<br>time: time<br>}] |  |
 
 ### Travels圈详情（不含评论）
-接口： `/api/travels/:id`
+接口： `/api/travel`
 类型： GET
 | 接受参数 | 类型 | 必填 | 描述 |
 |--------|-----|--------|-----|
-|  |  |  |  |
+| id | int | Y | travels圈的唯一id |
 
 | 返回参数 | 类型  | 描述|
 |--------|-----|--------|
@@ -148,11 +148,11 @@
 | id | |  |  |
 
 ### 删除Travels圈
-接口： `/api/travels/:id`
+接口： `/api/travel`
 类型： DELETE
 | 接受参数 | 类型 | 必填 | 描述 |
 |--------|-----|--------|-----|
-|  |  | | |
+| id | int | Y | travels圈唯一id |
 
 | 返回参数 | 类型 | 必填 | 描述 |
 |--------|-----|--------|-----|
@@ -266,11 +266,11 @@
 | [{<br>id,<br>head: url,<br>name,<br>hasIdCard,<br>hasEduCard,<br>hasGuideCard,<br>hasDriveCard<br>hasShop,<br>time<br>}] |  | sex:0为保密，1为男，2为女 |
 
 ### 后台用户详情
-接口： `backen/users/:id`
+接口： `backen/user`
 类型： `GET`
 | 接受参数 | 类型 | 必填 | 描述 |
 |--------|-----|--------|-----|
-|  |  |  |  |
+| id | int | Y | 指向唯一的用户id |
 
 | 返回参数 | 类型 | 描述 |
 |--------|-----|-----|
@@ -289,11 +289,11 @@
 | [{<br>id,<br>head: url,<br>name,<br>hasIdCard,<br>hasEduCard,<br>hasGuideCard,<br>hasDriveCard,<br>}] |  |  |
 
 ### 用户信息详情(他人页)(服务内个人标签)
-接口： `/api/users/:id`
+接口： `/api/user`
 类型： `GET`
 | 接受参数 | 类型 | 必填 | 描述 |
 |--------|-----|--------|-----|
-|  |  |  |  |
+| id | int | Y | 指向唯一的用户id |
 
 | 返回参数 | 类型 | 描述 |
 |--------|-----|----|
@@ -578,18 +578,18 @@
 |[{<br>id,<br>headImg,<br>title,<br>price,<br>type,<br>views,<br>likes,<br>time<br>}] | |  |
 
 ### 服务详情
-接口： `/api/servies/:id`
+接口： `/api/servie`
 类型： `GET`
 | 接受参数 | 类型 | 必填 | 描述 |
 |--------|-----|--------|-----|
-|  |  |  | |
+| id | int | Y | 指向服务的id |
 
 | 返回参数 | 类型 |描述 |
 |--------|-----|------|
 | {id,<br>headImg,title,<br>content,<br>price,<br>type,<br>views,<br>likes,<br>time<br>} | |  |
 
 ### 服务评价详情
-接口： `/api/servies/comment/:serviesId`
+接口： `/api/servie/comment/:serviesId`
 类型： `GET`
 | 接受参数 | 类型 | 必填 | 描述 |
 |--------|-----|--------|-----|
@@ -634,7 +634,7 @@
 | |  |  |
 
 ### 发布创建服务
-接口： `/api/servies`
+接口： `/api/servie`
 类型： `POST`
 | 接受参数 | 类型 | 必填 | 描述 |
 |--------|-----|--------|-----|
@@ -645,10 +645,11 @@
 | id |  |  |
 
 ### 修改服务
-接口： `/api/servies/:serviesId`
+接口： `/api/servie`
 类型： `PUT`
 | 接受参数 | 类型 | 必填 | 描述 |
 |--------|-----|--------|-----|
+| id | int | Y | |
 |{<br>headImg: File,<br>title,<br>content,<br>price,<br>typeId,<br>} |  |  | |
 
 | 返回参数 | 类型 | 描述 |
@@ -656,11 +657,11 @@
 |  |  | |
 
 ### 删除服务（删除附带图片文件等）
-接口： `/api/servies/:serviesId`
+接口： `/api/servie`
 类型： `DELETE`
 | 接受参数 | 类型 | 必填 | 描述 |
 |--------|-----|--------|-----|
-|  |  |  | |
+| id | int | Y | 指向server的唯一id |
 
 | 返回参数 | 类型 |描述 |
 |--------|-----|-----|
@@ -701,11 +702,11 @@
 | [{<br>id,<br>serviesId,<br>buyerId,<br>status,<br>hasComment,<br>time<br>}] | |  | 点击各个ID进入各类详情 |
 
 ### 用户订单列表(个人)
-接口： `/api/orders`
+接口： `/api/order`
 类型： `GET`
 | 接受参数 | 类型 | 必填 | 描述 |
 |--------|-----|--------|-----|
-|  |  |  | |
+| id | int | Y | |
 
 | 返回参数 | 类型 | 描述 |
 |--------|-----|----|
@@ -724,11 +725,11 @@
 | id |  |  |
 
 ### 删除取消订单
-接口： `/api/orders/:id`
+接口： `/api/order`
 类型： `DELETE`
 | 接受参数 | 类型 | 必填 | 描述 |
 |--------|-----|--------|-----|
-|  |  |  | |
+| id | int | Y | |
 
 | 返回参数 | 类型 | 描述 |
 |--------|-----|----|
