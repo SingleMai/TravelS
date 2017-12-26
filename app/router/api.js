@@ -18,4 +18,7 @@ module.exports = app => {
 
   // 用户相关
   router.get('/api/token', controller.users.token);
+  router.get('/api/users', controller.users.getList);
+  router.get('/api/user', controller.users.getOne);
+  router.get('/api/users/instroduction', controller.users.getInstroduction);
 };

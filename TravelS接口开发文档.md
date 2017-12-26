@@ -242,7 +242,7 @@
 |  | | |
 
 ## 用户信息
-### 用户登录
+### 用户登录（TODO 保留）
 接口: `/api/token`
 类型： `GET`
 | 接受参数 | 类型 | 必填 | 描述 |
@@ -264,9 +264,9 @@
 
 | 返回参数 | 类型 | 描述 |
 |--------|-----|-----|
-| [{<br>id,<br>head: url,<br>name,<br>hasIdCard,<br>hasEduCard,<br>hasGuideCard,<br>hasDriveCard<br>hasShop,<br>time<br>}] |  | sex:0为保密，1为男，2为女 |
+| [{<br>id,<br>sex,<br>head: url,<br>name,<br>hasIdCard,<br>hasEduCard,<br>hasGuideCard,<br>hasDriveCard<br>hasShop,<br>time<br>}] |  | sex:0为保密，1为男，2为女 |
 
-### 后台用户详情
+### 后台用户详情(TODO)
 接口： `backen/user`
 类型： `GET`
 | 接受参数 | 类型 | 必填 | 描述 |
@@ -311,7 +311,7 @@
 |--------|-----|-----|
 | {} |  |   |
 
-### 用户私密信息
+### 用户私密信息(TODO)
 接口： `/api/users/private/:id`
 类型： `GET`
 | 接受参数 | 类型 | 必填 | 描述 |
@@ -323,17 +323,17 @@
 | {<br>id,<br>name,<br>phone,<br>wetchar,<br>blog,<br>email<br>} |  |    |
 
 ### 获取用户自我介绍
-接口： `api/users/instroduction/:id`
+接口： `api/users/instroduction`
 类型： `GET`
 | 接受参数 | 类型 | 必填 | 描述 |
 |--------|-----|--------|-----|
-|  |  |  |  |
+| userId | int | Y |  |
 
 | 返回参数 | 类型 |描述 |
 |--------|-----|----|
 | instroduction | string  |  |
 
-### 用户注册
+### 用户注册(TODO)
 接口： `/api/users`
 类型： `POST`
 | 接受参数 | 类型 | 必填 | 描述 |
