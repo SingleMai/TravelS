@@ -9,8 +9,12 @@ module.exports = app => {
       autoIncrement: true,
       primaryKey: true,
     },
-    travels_id: {
+    travel_id: {
       type: INTEGER,
+      allowNull: false,
+    },
+    content: {
+      type: STRING,
       allowNull: false,
     },
     commenter: {
@@ -19,11 +23,6 @@ module.exports = app => {
     },
     replyer: {
       type: INTEGER,
-      allowNull: false,
-    },
-    content: {
-      type: STRING,
-      allowNull: false,
     },
     time: {
       type: DATE,
@@ -33,5 +32,6 @@ module.exports = app => {
     tableName: 'travels_comment',
     timestamps: false,
   });
+
   return TravelsComment;
 };

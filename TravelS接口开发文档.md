@@ -159,7 +159,7 @@
 |  |  | | |
 
 ### Travels comment查询评论
-接口： `/api/travels/comment`
+接口： `/api/travels/comments`
 类型：`GET`
 | 接受参数 | 类型 | 必填 | 描述 |
 |--------|-----|--------|-----|
@@ -169,24 +169,25 @@
 
 | 返回参数 | 类型 | 描述 |
 |--------|-----|-----|
-| [{<br>id,<br>commenter: {id, name}<br>,replay:{id, name},<br>,content,<br>time<br>}] |  |  |
+| [{<br>id,<br>commenter: {id, name}<br>,reply:{id, name},<br>,content,<br>time<br>}] |  |  |
 
 ### Travels comment 查询单条评论(用来作为消息提醒)
-接口： `api/travels/comment/:id`
+接口： `api/travels/comment`
 类型： `GET`
 | 接受参数 | 类型 | 必填 | 描述 |
 |--------|-----|--------|-----|
-|  |  |  |  |
+| id | int | Y |  |
 
 | 返回参数 | 类型 | 描述 |
 |--------|-----|-----|
-| {<br>id,<br>commenter: {id, name}<br>,replay:{id, name},<br>,content,<br>time<br>} |  | |
+| {<br>id,<br>commenter: {id, name}<br>,reply:{id, name},<br>,content,<br>time<br>} |  | |
 
 ### Travels comment 创建评价
 接口： `/api/travels/comment`
 类型： `POST`
 | 接受参数 | 类型 | 必填 | 描述 |
 |--------|-----|--------|-----|
+| travelId | Number | Y |  |
 | content | String | Y |  |
 | replayId | Number | N | 如果是子评论则传回复人的id |
 
@@ -195,17 +196,17 @@
 | id |  | |
 
 ### Travels comment删除评论
-接口： `/api/travels/comment/:id`
+接口： `/api/travels/comment`
 类型： `DELETE`
 | 接受参数 | 类型 | 必填 | 描述 |
 |--------|-----|--------|-----|
-|  |  |  |  |
+| id | int | Y |  |
 
 | 返回参数 | 类型 | 描述 |
 |--------|-----|-----|
 |  | | |
 
-### Travels likes 点赞列表
+### Travels likes 点赞列表(TODO 保留)
 接口：`/api/travels/likes`
 类型：`GET`
 | 接受参数 | 类型 | 必填 | 描述 |
@@ -223,7 +224,7 @@
 类型：`POST`
 | 接受参数 | 类型 | 必填 | 描述 |
 |--------|-----|--------|-----|
-| travelsId | Number | Y |  |
+| travelId | Number | Y |  |
 
 | 返回参数 | 类型 | 描述 |
 |--------|-----|-----|

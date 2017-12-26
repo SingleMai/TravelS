@@ -43,6 +43,23 @@ class TravelsLikesService extends Service {
     if (isLikes === null) return false;
     return true;
   }
+
+  // 点赞操作
+  async create(value) {
+    const result = await this.ctx.model.TravelsLikes.create(value);
+    return result;
+  }
+  // 取消点赞
+  async del(id) {
+    const like = await this.ctx.model.TravelsLikes.findOne({
+      where: {
+        id,
+      },
+    });
+    if (like === null) return;
+    like.destroy();
+    return;
+  }
 }
 
 module.exports = TravelsLikesService;
