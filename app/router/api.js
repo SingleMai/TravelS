@@ -21,4 +21,5 @@ module.exports = app => {
   router.get('/api/users', controller.users.getList);
   router.get('/api/user', controller.users.getOne);
   router.get('/api/users/instroduction', controller.users.getInstroduction);
+  router.post('/api/users/avator', controller.users.updateAvator);
 };
