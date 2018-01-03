@@ -94,7 +94,7 @@ class UsersController extends Controller {
     this.success(result);
   }
   // POST /api/users/avator
-  async updateAvator() {//TODO
+  async updateAvator() {
     const { ctx, service } = this;
     const stream = await ctx.getFileStream();
     const name = `${getDateTime()}@@${path.basename(stream.filename)}`;
@@ -114,22 +114,25 @@ class UsersController extends Controller {
     }
     const { id } = stream.fields;
     const user = await service.users.getOne(id);
-    if (user !== null) {
+    if (user === null) {
       await sendToWormhole(stream);
-      this.error(errCode.OBJECT_EXITS);
+      this.error(errCode.NOT_FOUND);
     }
     const filePath = path.join(__dirname, '../../app/public/avator');
     fs.writeFileSync(`${filePath}${path.sep}${name}`, stream);
-    const oriName = user.head;// TODO 将旧有的照片删除
+    const oriName = user.head;
     try {
-      // TODO 先判断是否为默认照片,不删除默认照片
-      fs.unlinkSync(`${filePath}${path.sep}${oriName}`);
+      if (oriName !== 'default_avator.jpg') {
+        await sendToWormhole(stream);
+        fs.unlinkSync(`${filePath}${path.sep}${oriName}`);
+      }
     } catch (err) {
       // 即使出错也不终止。将错误记录即可
       console.error(err);
     }
     user.head = name;
-    user.save();
+    await user.save();
+    this.success();
   }
 }
 
