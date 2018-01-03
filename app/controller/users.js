@@ -134,6 +134,34 @@ class UsersController extends Controller {
     await user.save();
     this.success();
   }
+  // POST /api/users
+  async updateUser() {
+    const { ctx, service } = this;
+    const rule = {
+      id: 'number',
+      name: { type: 'string', required: false },
+      sex: { type: 'number', required: false },
+      born: { type: 'string', required: false },
+      job: { type: 'string', required: false },
+      city: { type: 'string', required: false },
+      school: { type: 'string', required: false },
+    };
+    try {
+      ctx.validate(rule);
+    } catch (err) {
+      this.error(errCode.PARAMS_INVALID_EMPTY);
+    }
+    const { id, name, sex, born, job, city, school } = ctx.request.body;
+    const result = await service.users.updateUser(id , {
+      name,
+      sex,
+      born,
+      job,
+      city,
+      school,
+    });
+    this.success(result);
+  }
 }
 
 module.exports = UsersController;

@@ -76,6 +76,22 @@ class UsersService extends Service {
     });
     return user;
   }
+
+  async updateUser(id, values) {
+    const keys = [];
+    for (const value in values) {
+      if (values[value]) {
+        keys.push(value)
+      }
+    }
+    const user = await this.ctx.model.Users.update(values, {
+      where: {
+        id,
+      },
+      fields: keys,
+    });
+    return user;
+  }
 }
 
 module.exports = UsersService;
