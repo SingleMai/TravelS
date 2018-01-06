@@ -152,7 +152,7 @@ class UsersController extends Controller {
       this.error(errCode.PARAMS_INVALID_EMPTY);
     }
     const { id, name, sex, born, job, city, school } = ctx.request.body;
-    const result = await service.users.updateUser(id , {
+    const result = await service.users.updateUser(id, {
       name,
       sex,
       born,
@@ -161,6 +161,64 @@ class UsersController extends Controller {
       school,
     });
     this.success(result);
+  }
+  // GET /api/users/service/likes/:useId
+  async getServiesLikes() {
+    const { ctx, service } = this;
+    const rule = {
+      userId: 'id',
+    };
+    const ruleBody = {
+      limit: 'id',
+      offset: 'id',
+    };
+    try {
+      ctx.validate(rule, ctx.params);
+      ctx.validate(ruleBody, ctx.query);
+    } catch (err) {
+      this.error(errCode.PARAMS_INVALID_EMPTY);
+    }
+    let { userId } = ctx.params;
+    let { limit, offset } = ctx.query;
+    userId = parseInt(userId);
+    limit = parseInt(limit);
+    offset = parseInt(offset);
+    const result = await service.users.getServiesLikes(userId, {
+      limit,
+      offset,
+    });
+    this.success(result);
+  }
+  // POST /api/users/servies/likes
+  // 对于已经收藏过的内容不予以报错，仅仅返回之前创建过的收藏内容即可
+  async createServiesLikes() {
+    const { ctx, service } = this;
+    const rule = {
+      serviesId: 'number',
+    };
+    try {
+      ctx.validate(rule);
+    } catch (err) {
+      this.error(errCode.PARAMS_INVALID_EMPTY);
+    }
+    const { serviesId } = ctx.request.body;
+    const result = await service.users.createServiesLikes(1, serviesId); // TODO 将1换为登录态后的用户id
+    this.success(result);
+  }
+  // DELETE /api/users/servies/likes/:likesId
+  async delServiesLikes() {
+    const { ctx, service } = this;
+    const rule = {
+      likesId: 'id',
+    };
+    try {
+      ctx.validate(rule, ctx.params);
+    } catch (err) {
+      this.error(errCode.PARAMS_INVALID_EMPTY);
+    }
+    const { likesId } = ctx.params;
+    await service.users.delServiesLikes(parseInt(likesId));
+    this.success();
   }
 }
 

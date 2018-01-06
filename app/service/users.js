@@ -81,7 +81,7 @@ class UsersService extends Service {
     const keys = [];
     for (const value in values) {
       if (values[value]) {
-        keys.push(value)
+        keys.push(value);
       }
     }
     const user = await this.ctx.model.Users.update(values, {
@@ -91,6 +91,59 @@ class UsersService extends Service {
       fields: keys,
     });
     return user;
+  }
+
+  async getServiesLikes(user_id, { offset, limit }) {
+    const orign = await this.ctx.model.UserLikes.findAll({
+      raw: true,
+      limit,
+      offset,
+      order: [['time', 'DESC']],
+      attributes: ['id', ['user_id', 'userId'], ['servies_id', 'serviesId']],
+      where: {
+        user_id,
+      },
+    });
+    const result = [];
+    for (const item of orign) {
+      if (item === null) return;
+      const servies = await this.ctx.model.Servies.findOne({
+        raw: true,
+        attributes: [['head_img', 'headImg'], 'title', 'price', 'type_id', 'views', 'likes', 'time'],
+        where: {
+          id: item.serviesId,
+        },
+      });
+      result.push(Object.assign({ id: item.id }, servies));
+    }
+    return result;
+  }
+
+  async createServiesLikes(userId, serviesId) {
+    const result = await this.ctx.model.UserLikes.findOrCreate({
+      where: {
+        user_id: userId,
+        servies_id: serviesId,
+      },
+      defaults: {
+        user_id: userId,
+        servies_id: serviesId,
+        time: new Date(),
+      },
+    });
+    return result[0];
+  }
+
+  async delServiesLikes(id) {
+    const data = await this.ctx.model.UserLikes.findOne({
+      where: {
+        id,
+      },
+    });
+    if (data === null) {
+      return;
+    }
+    data.destroy();
   }
 }
 

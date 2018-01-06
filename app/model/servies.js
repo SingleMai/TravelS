@@ -17,7 +17,7 @@ module.exports = app => {
       type: STRING(50),
       allowNull: false,
     },
-    tilte: {
+    title: {
       type: STRING(30),
       allowNull: false,
     },

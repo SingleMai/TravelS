@@ -23,4 +23,8 @@ module.exports = app => {
   router.get('/api/users/instroduction', controller.users.getInstroduction);
   router.post('/api/users/avator', controller.users.updateAvator);
   router.put('/api/users', controller.users.updateUser);
+  // 用户收藏相关
+  router.get('/api/users/servies/likes/:userId', controller.users.getServiesLikes);
+  router.post('/api/users/servies/likes', controller.users.createServiesLikes);
+  router.delete('/api/users/servies/likes/:likesId', controller.users.delServiesLikes);
 };
