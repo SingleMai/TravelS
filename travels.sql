@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2017-12-23 00:21:12
+Date: 2018-01-06 15:47:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -196,13 +196,16 @@ CREATE TABLE `travels` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of travels
 -- ----------------------------
 INSERT INTO `travels` VALUES ('1', '1', 'aa', '0', '2017-12-20 22:58:47');
 INSERT INTO `travels` VALUES ('2', '2', 'bb', '0', '2017-12-22 23:41:41');
+INSERT INTO `travels` VALUES ('3', '1', '11', '0', '2017-12-24 09:09:37');
+INSERT INTO `travels` VALUES ('4', '1', '111', '0', '2017-12-24 09:47:42');
+INSERT INTO `travels` VALUES ('5', '1', '111', '0', '2017-12-24 09:50:38');
 
 -- ----------------------------
 -- Table structure for `travels_comment`
@@ -210,17 +213,19 @@ INSERT INTO `travels` VALUES ('2', '2', 'bb', '0', '2017-12-22 23:41:41');
 DROP TABLE IF EXISTS `travels_comment`;
 CREATE TABLE `travels_comment` (
   `id` int(15) NOT NULL AUTO_INCREMENT,
-  `travels_id` int(15) NOT NULL,
+  `travel_id` int(15) NOT NULL,
   `commenter` int(15) NOT NULL,
   `replyer` int(15) NOT NULL,
   `content` text NOT NULL,
   `time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of travels_comment
 -- ----------------------------
+INSERT INTO `travels_comment` VALUES ('1', '1', '1', '2', 'nihao', '2017-12-26 14:28:39');
+INSERT INTO `travels_comment` VALUES ('4', '1', '1', '0', 'nihao', '2017-12-26 14:37:44');
 
 -- ----------------------------
 -- Table structure for `travels_img`
@@ -233,13 +238,11 @@ CREATE TABLE `travels_img` (
   `order` int(10) NOT NULL COMMENT '图片展示的顺序，从小到大排序',
   `time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of travels_img
 -- ----------------------------
-INSERT INTO `travels_img` VALUES ('1', '1', 'AA', '0', '2017-12-20 23:45:03');
-INSERT INTO `travels_img` VALUES ('2', '1', 'BB', '1', '2017-12-23 00:00:29');
 
 -- ----------------------------
 -- Table structure for `travels_likes`
@@ -247,15 +250,18 @@ INSERT INTO `travels_img` VALUES ('2', '1', 'BB', '1', '2017-12-23 00:00:29');
 DROP TABLE IF EXISTS `travels_likes`;
 CREATE TABLE `travels_likes` (
   `id` int(15) NOT NULL AUTO_INCREMENT,
-  `travels_id` int(15) NOT NULL,
+  `travel_id` int(15) NOT NULL,
   `user_id` int(15) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of travels_likes
 -- ----------------------------
-INSERT INTO `travels_likes` VALUES ('1', '1', '1');
+INSERT INTO `travels_likes` VALUES ('2', '1', '0');
+INSERT INTO `travels_likes` VALUES ('3', '1', '0');
+INSERT INTO `travels_likes` VALUES ('4', '1', '0');
+INSERT INTO `travels_likes` VALUES ('5', '1', '0');
 
 -- ----------------------------
 -- Table structure for `users`
@@ -293,8 +299,8 @@ CREATE TABLE `users` (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('1', 'aaa', 'singlemai', '1', '13164791', '', '', '', 'a', '0', '0', '0', '0', '0', '2017-12-13', 'a', '', '', '0', '2017-12-20 22:58:34');
-INSERT INTO `users` VALUES ('2', 'bbb', 'single', '2', '46497612', '13164641', '1', '1', 'b', '0', '0', '0', '0', '0', '2017-12-19', 'a', '', '', '0', '2017-12-11 23:42:43');
+INSERT INTO `users` VALUES ('1', '201803234210@@IMG_5356.PNG', 'xixia', '1', '13164791', '', '', '', 'a', '1', '0', '0', '0', '1', '2017-12-13', 'a', '深圳', '', '0', '2017-12-20 22:58:34');
+INSERT INTO `users` VALUES ('2', '201803234154@@IMG_5354.PNG', 'single', '2', '46497612', '13164641', '1', '1', 'b', '0', '0', '0', '0', '0', '2017-12-19', 'a', '', '', '0', '2017-12-11 23:42:43');
 
 -- ----------------------------
 -- Table structure for `user_card`
