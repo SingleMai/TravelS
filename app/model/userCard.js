@@ -34,5 +34,6 @@ module.exports = app => {
     tableName: 'user_card',
     timestamps: false,
   });
+  UserCard.sync();
   return UserCard;
 };

@@ -17,5 +17,6 @@ module.exports = app => {
     tableName: 'servies_type',
     timestamps: false,
   });
+  ServiesTypes.sync();
   return ServiesTypes;
 };

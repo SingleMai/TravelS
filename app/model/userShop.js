@@ -21,5 +21,6 @@ module.exports = app => {
     tableName: 'user_shop',
     timestamps: false,
   });
+  UserShop.sync();
   return UserShop;
 };

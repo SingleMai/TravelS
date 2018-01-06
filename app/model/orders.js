@@ -33,5 +33,6 @@ module.exports = app => {
     tableName: 'orders',
     timestamps: false,
   });
+  Orders.sync();
   return Orders;
 };

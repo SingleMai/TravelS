@@ -29,5 +29,6 @@ module.exports = app => {
     tableName: 'wallet',
     timestamps: false,
   });
+  wallet.sync();
   return wallet;
 };

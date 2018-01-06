@@ -30,5 +30,6 @@ module.exports = app => {
     tableName: 'admin',
     timestamps: false,
   });
+  Admin.sync();
   return Admin;
 };

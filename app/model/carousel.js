@@ -37,5 +37,6 @@ module.exports = app => {
     tableName: 'carousel',
     timestamps: false,
   });
+  Carousel.sync();
   return Carousel;
 };

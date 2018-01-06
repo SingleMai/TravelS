@@ -90,6 +90,6 @@ module.exports = app => {
     app.model.Users.hasOne(app.model.Travels);
     app.model.Users.hasMany(app.model.TravelsLikes);
   };
-
+  Users.sync();
   return Users;
 };

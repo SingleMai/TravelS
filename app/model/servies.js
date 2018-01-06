@@ -49,5 +49,6 @@ module.exports = app => {
     tableName: 'servies',
     timestamps: false,
   });
+  Servies.sync();
   return Servies;
 };

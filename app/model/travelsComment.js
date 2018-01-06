@@ -32,6 +32,6 @@ module.exports = app => {
     tableName: 'travels_comment',
     timestamps: false,
   });
-
+  TravelsComment.sync();
   return TravelsComment;
 };

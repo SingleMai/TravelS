@@ -6,7 +6,7 @@ const sequelize = {
   host: 'localhost',
   port: '3306',
   username: 'root',
-  password: '',
+  password: '123456',
   timezone: '+08:00', // 东八时区
   logging: false,
 };

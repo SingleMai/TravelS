@@ -25,5 +25,6 @@ module.exports = app => {
     tableName: 'servies_reply',
     timestamps: false,
   });
+  ServiesReply.sync();
   return ServiesReply;
 };

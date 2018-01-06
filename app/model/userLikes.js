@@ -25,5 +25,6 @@ module.exports = app => {
     tableName: 'user_likes',
     timestamps: false,
   });
+  UserLikes.sync();
   return UserLikes;
 };

@@ -30,6 +30,6 @@ module.exports = app => {
     app.model.Travels.belongsTo(app.model.Users);
     app.model.Travels.hasMany(app.model.TravelsLikes);
   };
-
+  Travels.sync();
   return Travels;
 };

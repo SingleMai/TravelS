@@ -18,6 +18,6 @@ module.exports = app => {
     app.model.TravelsLikes.belongsTo(app.model.Users);
     app.model.TravelsLikes.belongsTo(app.model.Travels);
   };
-
+  TravelsLikes.sync();
   return TravelsLikes;
 };

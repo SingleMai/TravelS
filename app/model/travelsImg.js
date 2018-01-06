@@ -21,5 +21,6 @@ module.exports = app => {
     tableName: 'travels_img',
     timestamps: false,
   });
+  TravelsImg.sync();
   return TravelsImg;
 };

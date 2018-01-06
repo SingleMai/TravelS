@@ -30,5 +30,6 @@ module.exports = app => {
     tableName: 'Servies_comment_img',
     timestamps: false,
   });
+  ServiesCommentImg.sync();
   return ServiesCommentImg;
 };
