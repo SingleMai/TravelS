@@ -145,6 +145,41 @@ class UsersService extends Service {
     }
     data.destroy();
   }
+
+  async getCard(user_id) {
+    const result = await this.ctx.model.UserCard.findAll({
+      raw: true,
+      order: [['time', 'DESC']],
+      attributes: ['id', ['card_img', 'cardImg'], 'status', 'type'],
+      where: {
+        user_id,
+      },
+    });
+    return result;
+  }
+
+  async getUserCard(id) {
+    const result = await this.ctx.model.UserCard.findOne({
+      where: {
+        id,
+      },
+    });
+    return result;
+  }
+
+  async checkCard(id, status) {
+    const data = await this.ctx.model.UserCard.findOne({
+      where: {
+        id,
+      },
+    });
+    if (data === null) {
+      throw new Error('usercard not found');
+    }
+    data.status = status;
+    data.save();
+    return data;
+  }
 }
 
 module.exports = UsersService;

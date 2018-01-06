@@ -17,4 +17,5 @@ module.exports = app => {
   // 用户相关
   app.router.get('/backen/users', users._getList);
   app.router.get('/backen/user', users._getOne);
+  app.router.put('/backen/users/card', users.checkCard);
 };

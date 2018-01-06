@@ -27,4 +27,6 @@ module.exports = app => {
   router.get('/api/users/servies/likes/:userId', controller.users.getServiesLikes);
   router.post('/api/users/servies/likes', controller.users.createServiesLikes);
   router.delete('/api/users/servies/likes/:likesId', controller.users.delServiesLikes);
+  router.get('/api/users/card', controller.users.getCard);
+  router.put('/api/users/card', controller.users.updateCard);
 };

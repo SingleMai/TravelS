@@ -220,6 +220,74 @@ class UsersController extends Controller {
     await service.users.delServiesLikes(parseInt(likesId));
     this.success();
   }
+
+  // GET /api/users/card
+  // TODO可以考虑换成用用户登录态来获取userId
+  async getCard() {
+    const { ctx, service } = this;
+    const rule = {
+      userId: 'id',
+    };
+    try {
+      ctx.validate(rule, ctx.query);
+    } catch (err) {
+      this.error(errCode.PARAMS_INVALID_EMPTY);
+    }
+    const { userId } = ctx.query;
+    const result = await service.users.getCard(parseInt(userId));
+    this.success(result);
+  }
+  // PUT /api/users/card
+  async updateCard() {
+    const { ctx, service } = this;
+    const stream = await ctx.getFileStream();
+    const name = `${getDateTime()}@@${path.basename(stream.filename)}`;
+    if (!isPic(stream)) { // 判断是否图片类型
+      // 必须将上传的文件流消费掉，要不然浏览器响应会卡死
+      await sendToWormhole(stream);
+      this.error(errCode.FILES_TYPE_INVALID);
+    }
+    const rule = {
+      id: { type: 'id', required: true },
+    };
+    try {
+      ctx.validate(rule, stream.fields);
+    } catch (err) {
+      await sendToWormhole(stream);
+      this.error(errCode.PARAMS_INVALID_EMPTY);
+    }
+    const { id } = stream.fields;
+    const userCard = await service.users.getUserCard(id);
+    if (userCard === null) {
+      await sendToWormhole(stream);
+      this.error(errCode.NOT_FOUND);
+    }
+    const filePath = path.join(__dirname, '../../app/public/id-card');
+    fs.writeFileSync(`${filePath}${path.sep}${name}`, stream);
+    userCard.card_img = name;
+    userCard.status = 0;
+    await userCard.save();
+    this.success();
+  }
+  async checkCard() {
+    const { ctx, service } = this;
+    const rule = {
+      id: 'number',
+      status: 'number',
+    };
+    try {
+      ctx.validate(rule);
+    } catch (err) {
+      this.error(errCode.PARAMS_INVALID_EMPTY);
+    }
+    const { id, status } = ctx.request.body;
+    try {
+      const result = await service.users.checkCard(id, status);
+      this.success(result);
+    } catch (err) {
+      this.error(errCode.NOT_FOUND);
+    }
+  }
 }
 
 module.exports = UsersController;
