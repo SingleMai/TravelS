@@ -29,4 +29,9 @@ module.exports = app => {
   router.delete('/api/users/servies/likes/:likesId', controller.users.delServiesLikes);
   router.get('/api/users/card', controller.users.getCard);
   router.put('/api/users/card', controller.users.updateCard);
+  // 商店相关
+  router.post('/api/shop', controller.userShop.create);
+
+  // 服务相关
+  router.get('/api/servies', controller.servies.getList);
 };

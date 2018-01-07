@@ -13,6 +13,11 @@ module.exports = app => {
       type: INTEGER,
       allowNull: false,
     },
+    status: {
+      type: INTEGER,
+      default: 1,
+      comment: '商店的状态，1. 营业， 2.打烊'
+    },
     time: {
       type: DATE,
       allowNull: false,
