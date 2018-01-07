@@ -12,8 +12,10 @@ class BaseController extends Controller {
     };
   }
 
-  error(err) {
+  error(err, msg = '') {
     // 将错误抛出
+    // 将第二层的错误打印在控制台进行调控
+    console.log(msg);
     throw new APIError(err.code, err.msg);
   }
 }

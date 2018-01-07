@@ -18,4 +18,7 @@ module.exports = app => {
   app.router.get('/backen/users', users._getList);
   app.router.get('/backen/user', users._getOne);
   app.router.put('/backen/users/card', users.checkCard);
+  app.router.post('/backen/users', users._createUser);
+  app.router.put('/backen/users', users.changeInvalidUsers);
+
 };

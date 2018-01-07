@@ -180,6 +180,16 @@ class UsersService extends Service {
     data.save();
     return data;
   }
+
+  async changeInvalidUsers(id, values) {
+    const data = await this.ctx.model.Users.update(values, {
+      where: {
+        id,
+      },
+      fields: ['instroduction', 'job', 'city', 'school'],
+    });
+    return data;
+  }
 }
 
 module.exports = UsersService;

@@ -24,7 +24,7 @@ class UsersController extends Controller {
     try {
       ctx.validate(rule, ctx.query);
     } catch (err) {
-      this.error(errCode.PARAMS_INVALID_EMPTY);
+      this.error(errCode.PARAMS_INVALID_EMPTY, err);
     }
     const { limit, offset } = ctx.query;
     const result = await service.users.getList(parseInt(limit), parseInt(offset));
@@ -39,7 +39,7 @@ class UsersController extends Controller {
     try {
       ctx.validate(rule, ctx.query);
     } catch (err) {
-      this.error(errCode.PARAMS_INVALID_EMPTY);
+      this.error(errCode.PARAMS_INVALID_EMPTY, err);
     }
     const { id } = ctx.query;
     const result = await service.users.getOne(parseInt(id));
@@ -56,7 +56,7 @@ class UsersController extends Controller {
     try {
       ctx.validate(rule, ctx.query);
     } catch (err) {
-      this.error(errCode.PARAMS_INVALID_EMPTY);
+      this.error(errCode.PARAMS_INVALID_EMPTY, err);
     }
     const { limit, offset } = ctx.query;
     const result = await service.users._getList(parseInt(limit), parseInt(offset));
@@ -72,7 +72,7 @@ class UsersController extends Controller {
     try {
       ctx.validate(rule, ctx.query);
     } catch (err) {
-      this.error(errCode.PARAMS_INVALID_EMPTY);
+      this.error(errCode.PARAMS_INVALID_EMPTY, err);
     }
     const { id } = ctx.query;
     const result = await service.users._getOne(id);
@@ -87,7 +87,7 @@ class UsersController extends Controller {
     try {
       ctx.validate(rule, ctx.query);
     } catch (err) {
-      this.error(errCode.PARAMS_INVALID_EMPTY);
+      this.error(errCode.PARAMS_INVALID_EMPTY, err);
     }
     const { userId } = ctx.query;
     const result = await service.users.getInstroduction(userId);
@@ -101,7 +101,7 @@ class UsersController extends Controller {
     if (!isPic(stream)) { // 判断是否图片类型
       // 必须将上传的文件流消费掉，要不然浏览器响应会卡死
       await sendToWormhole(stream);
-      this.error(errCode.FILES_TYPE_INVALID);
+      this.error(errCode.FILES_TYPE_INVALID, err);
     }
     const rule = {
       id: { type: 'id', required: true },
@@ -110,13 +110,13 @@ class UsersController extends Controller {
       ctx.validate(rule, stream.fields);
     } catch (err) {
       await sendToWormhole(stream);
-      this.error(errCode.PARAMS_INVALID_EMPTY);
+      this.error(errCode.PARAMS_INVALID_EMPTY, err);
     }
     const { id } = stream.fields;
     const user = await service.users.getOne(id);
     if (user === null) {
       await sendToWormhole(stream);
-      this.error(errCode.NOT_FOUND);
+      this.error(errCode.NOT_FOUND, err);
     }
     const filePath = path.join(__dirname, '../../app/public/avator');
     fs.writeFileSync(`${filePath}${path.sep}${name}`, stream);
@@ -149,7 +149,7 @@ class UsersController extends Controller {
     try {
       ctx.validate(rule);
     } catch (err) {
-      this.error(errCode.PARAMS_INVALID_EMPTY);
+      this.error(errCode.PARAMS_INVALID_EMPTY, err);
     }
     const { id, name, sex, born, job, city, school } = ctx.request.body;
     const result = await service.users.updateUser(id, {
@@ -176,7 +176,7 @@ class UsersController extends Controller {
       ctx.validate(rule, ctx.params);
       ctx.validate(ruleBody, ctx.query);
     } catch (err) {
-      this.error(errCode.PARAMS_INVALID_EMPTY);
+      this.error(errCode.PARAMS_INVALID_EMPTY, err);
     }
     let { userId } = ctx.params;
     let { limit, offset } = ctx.query;
@@ -199,7 +199,7 @@ class UsersController extends Controller {
     try {
       ctx.validate(rule);
     } catch (err) {
-      this.error(errCode.PARAMS_INVALID_EMPTY);
+      this.error(errCode.PARAMS_INVALID_EMPTY, err);
     }
     const { serviesId } = ctx.request.body;
     const result = await service.users.createServiesLikes(1, serviesId); // TODO 将1换为登录态后的用户id
@@ -214,7 +214,7 @@ class UsersController extends Controller {
     try {
       ctx.validate(rule, ctx.params);
     } catch (err) {
-      this.error(errCode.PARAMS_INVALID_EMPTY);
+      this.error(errCode.PARAMS_INVALID_EMPTY, err);
     }
     const { likesId } = ctx.params;
     await service.users.delServiesLikes(parseInt(likesId));
@@ -231,7 +231,7 @@ class UsersController extends Controller {
     try {
       ctx.validate(rule, ctx.query);
     } catch (err) {
-      this.error(errCode.PARAMS_INVALID_EMPTY);
+      this.error(errCode.PARAMS_INVALID_EMPTY, err);
     }
     const { userId } = ctx.query;
     const result = await service.users.getCard(parseInt(userId));
@@ -245,7 +245,7 @@ class UsersController extends Controller {
     if (!isPic(stream)) { // 判断是否图片类型
       // 必须将上传的文件流消费掉，要不然浏览器响应会卡死
       await sendToWormhole(stream);
-      this.error(errCode.FILES_TYPE_INVALID);
+      this.error(errCode.FILES_TYPE_INVALID, err);
     }
     const rule = {
       id: { type: 'id', required: true },
@@ -254,13 +254,13 @@ class UsersController extends Controller {
       ctx.validate(rule, stream.fields);
     } catch (err) {
       await sendToWormhole(stream);
-      this.error(errCode.PARAMS_INVALID_EMPTY);
+      this.error(errCode.PARAMS_INVALID_EMPTY, err);
     }
     const { id } = stream.fields;
     const userCard = await service.users.getUserCard(id);
     if (userCard === null) {
       await sendToWormhole(stream);
-      this.error(errCode.NOT_FOUND);
+      this.error(errCode.NOT_FOUND, err);
     }
     const filePath = path.join(__dirname, '../../app/public/id-card');
     fs.writeFileSync(`${filePath}${path.sep}${name}`, stream);
@@ -269,6 +269,7 @@ class UsersController extends Controller {
     await userCard.save();
     this.success();
   }
+  // PUT /backen/users/card
   async checkCard() {
     const { ctx, service } = this;
     const rule = {
@@ -285,7 +286,52 @@ class UsersController extends Controller {
       const result = await service.users.checkCard(id, status);
       this.success(result);
     } catch (err) {
-      this.error(errCode.NOT_FOUND);
+      this.error(errCode.NOT_FOUND, err);
+    }
+  }
+  // POST /backen/users
+  // 提供给后台管理员的创建用户逻辑
+  // TODO 暂时缺省，待后台管理页面再定制
+  async _createUser() {
+    // const { ctx, service } = this;
+    // const rule = {
+    //   id: 'number',
+    //   status: 'number',
+    // };
+    // try {
+    //   ctx.validate(rule);
+    // } catch (err) {
+    //   this.error(errCode.PARAMS_INVALID_EMPTY);
+    // }
+  }
+  // PUT /backen/users
+  // 提供给后台管理员修改一些用户的违规内容
+  async changeInvalidUsers() {
+    const { ctx, service } = this;
+    // 简化处理逻辑，后台客户端必须将内容都进行提交
+    const rule = {
+      id: 'number',
+      instroduction: 'string',
+      job: 'string',
+      city: 'string',
+      school: 'string',
+    };
+    try {
+      ctx.validate(rule);
+    } catch (err) {
+      this.error(errCode.PARAMS_INVALID_EMPTY, err);
+    }
+    const { id, instroduction, job, city, school } = ctx.request.body;
+    try {
+      const result = await service.users.changeInvalidUsers(id, {
+        instroduction,
+        job,
+        city,
+        school,
+      });
+      this.success(result);
+    } catch (err) {
+      this.error(errCode.NOT_FOUND, err);
     }
   }
 }
