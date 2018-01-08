@@ -15,9 +15,21 @@ class ServiesService extends Service {
     return result;
   }
 
-  async getTypes() {
-    const types = await this.ctx.model.ServiesTypes.findAll({
+  async getOne(id) {
+    const result = this.ctx.model.Servies.findOne({
+      raw: true,
+      where: {
+        id,
+      },
+      attributes: ['id', ['head_img', 'headImg'],
+        'title', 'content', 'price', ['type_id', 'type'],
+        'views', 'likes', 'time'],
     });
+    return result;
+  }
+
+  async getTypes() {
+    const types = await this.ctx.model.ServiesTypes.findAll({});
     return types;
   }
 }

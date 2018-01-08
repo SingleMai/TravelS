@@ -9,7 +9,7 @@ class TravelsService extends Service {
       user_id: 1, // TODO 接入用户id
       content,
       views: 0,
-      time: new Date()
+      time: new Date(),
     });
     return result;
   }

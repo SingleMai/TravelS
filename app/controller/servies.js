@@ -24,5 +24,24 @@ class ServiesController extends Controller {
     });
     this.success(result);
   }
+  // GET /api/servie
+  async getOne() {
+    const { ctx, service } = this;
+    const rule = {
+      id: 'id',
+    };
+    try {
+      ctx.validate(rule, ctx.query);
+    } catch (err) {
+      this.error(errCode.PARAMS_INVALID_EMPTY);
+    }
+    let { id } = ctx.query;
+    id = parseInt(id);
+    const result = await service.servies.getOne(id);
+    if (result === null) {
+      this.error(errCode.NOT_FOUND);
+    }
+    this.success(result);
+  }
 }
 module.exports = ServiesController;

@@ -660,8 +660,8 @@
 
 | 返回参数 | 类型 |描述 |
 |--------|-----|----|
-| comment | [{<br>content,<br>starts,<br>img:[path],<br>time<br>}]  |  |  |
-| reply | {<br>content,<br>time<br>} | |
+| data | [{<br>content,<br>starts,<br>img:[path],<br>reply:[{<br>content,<br>time<br>}]time<br>}]  |  |  |
+|  |  | |
 
 ### 服务类型映射列表
 接口： `/api/servies/type`
@@ -676,7 +676,7 @@
 | {id：name} |  |  |
 
 ### 添加服务类型
-接口： `/api/servies/type`
+接口： `/backen/servies/type`
 类型： `POST`
 
 | 接受参数 | 类型 | 必填 | 描述 |
@@ -688,12 +688,12 @@
 | id |  |  |
 
 ### 删除服务类型
-接口： `/api/servies/type/:typeId`
+接口： `/backen/servies/type`
 类型： `DELETE`
 
 | 接受参数 | 类型 | 必填 | 描述 |
 |--------|-----|--------|-----|
-|  |  |  | |
+| id |  |  | |
 
 | 返回参数 | 类型 | 描述 |
 |--------|-----|------|

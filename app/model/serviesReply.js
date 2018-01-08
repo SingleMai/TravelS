@@ -9,7 +9,7 @@ module.exports = app => {
       autoIncrement: true,
       primaryKey: true,
     },
-    comments_id: {
+    comment_id: {
       type: INTEGER,
       allowNull: false,
     },

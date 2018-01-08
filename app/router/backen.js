@@ -5,6 +5,7 @@ module.exports = app => {
   const admin = app.controller.admin;
   const carousel = app.controller.carousel;
   const users = app.controller.users;
+  const serviesTypes = app.controller.serviesTypes;
   // 后台管理员相关
   app.router.get('/backen/token', admin.token);
   app.router.get('/backen/admin', admin.getList);
@@ -21,4 +22,7 @@ module.exports = app => {
   app.router.post('/backen/users', users._createUser);
   app.router.put('/backen/users', users.changeInvalidUsers);
 
+  // 服务相关
+  app.router.post('/backen/servies/type', serviesTypes.create);
+  app.router.delete('/backen/servies/type', serviesTypes.del);
 };
