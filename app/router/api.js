@@ -35,6 +35,7 @@ module.exports = app => {
   // 服务相关
   router.get('/api/servies', controller.servies.getList);
   router.get('/api/servie', controller.servies.getOne);
+  router.post('/api/servie', controller.servies.create);
   router.get('/api/servie/comment/:serviesId', controller.serviesComment.getList);
   // 服务类型相关
   router.get('/api/servies/type', controller.serviesTypes.getRealtions);

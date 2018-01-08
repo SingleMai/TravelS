@@ -3,6 +3,11 @@
 const Service = require('egg').Service;
 
 class ServiesService extends Service {
+  async create(values) {
+    const result = await this.ctx.model.Servies.create(values);
+    return result;
+  }
+
   async getList({ limit, offset }) {
     const result = this.ctx.model.Servies.findAll({
       limit,
