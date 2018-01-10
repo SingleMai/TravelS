@@ -87,5 +87,33 @@ class ServiesController extends Controller {
     fs.writeFileSync(`${filePath}${path.sep}${name}`, stream);
     this.success(result);
   }
+  // PUT /api/servie
+  async update() {
+    const { ctx, service } = this;
+    const rule = {
+      id: 'number',
+      title: 'string',
+      content: 'string',
+      price: 'number',
+      typeId: 'number',
+    };
+    try {
+      ctx.validate(rule);
+    } catch (err) {
+      this.error(errCode.PARAMS_INVALID_EMPTY);
+    }
+    const { id, title, content, price, typeId } = ctx.request.body;
+    try {
+      const result = await service.servies.update(id, {
+        title,
+        content,
+        price,
+        type_id: typeId,
+      });
+      this.success(result);
+    } catch (err) {
+      this.error(errCode.NOT_FOUND);
+    }
+  }
 }
 module.exports = ServiesController;

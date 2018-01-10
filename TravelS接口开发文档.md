@@ -711,18 +711,19 @@
 |--------|-----|-----|
 | id |  |  |
 
-### 修改服务//HERE
+### 修改服务(单单修改文字信息
 接口： `/api/servie`
 类型： `PUT`
 
 | 接受参数 | 类型 | 必填 | 描述 |
 |--------|-----|--------|-----|
-| id | int | Y | |
-|{<br>headImg: File,<br>title,<br>content,<br>price,<br>typeId,<br>} |  |  | |
+|{<br> id，<br>title,<br>content,<br>price,<br>typeId,<br>} |  |  | |
 
 | 返回参数 | 类型 | 描述 |
 |--------|-----|-----|
 |  |  | |
+
+### 修改服务的首页图片//here
 
 ### 删除服务（删除附带图片文件等）
 接口： `/api/servie`

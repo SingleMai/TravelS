@@ -37,6 +37,14 @@ class ServiesService extends Service {
     const types = await this.ctx.model.ServiesTypes.findAll({});
     return types;
   }
+
+  async update(id, values) {
+    const data = await this.ctx.model.Servies.update(values, {
+      where: { id },
+      fileds: ['title', 'content', 'price', 'typeId'],
+    });
+    return data;
+  }
 }
 
 module.exports = ServiesService;
