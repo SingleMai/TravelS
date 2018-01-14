@@ -11,7 +11,6 @@ module.exports = app => {
     },
     servies_id: {
       type: INTEGER,
-      allowNull: false,
     },
     servies_img: {
       type: STRING(50),

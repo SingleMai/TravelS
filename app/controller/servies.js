@@ -115,5 +115,74 @@ class ServiesController extends Controller {
       this.error(errCode.NOT_FOUND);
     }
   }
+  // PUT /api/servies/headImg
+  async updateHeadImg() {
+    const { ctx, service } = this;
+    const stream = await ctx.getFileStream();
+    const name = `${getDateTime()}@@${path.basename(stream.filename)}`;
+    if (!isPic(stream)) { // 判断是否图片类型
+      // 必须将上传的文件流消费掉，要不然浏览器响应会卡死
+      await sendToWormhole(stream);
+      this.error(errCode.FILES_TYPE_INVALID);
+    }
+    const rule = {
+      id: 'string',
+    };
+    try {
+      ctx.validate(rule, stream.fields);
+    } catch (err) {
+      await sendToWormhole(stream);
+      this.error(errCode.PARAMS_INVALID_EMPTY);
+    }
+    const { id } = stream.fields;
+    const result = await service.servies.getOne(parseInt(id));
+    if (result === null) {
+      await sendToWormhole(stream);
+      this.error(errCode.NOT_FOUND);
+    }
+    const filePath = path.join(__dirname, '../../app/public/servies');
+    fs.writeFileSync(`${filePath}${path.sep}${name}`, stream);
+    const oldFile = result.get('headImg');
+    try {
+      fs.unlinkSync(`${filePath}${path.sep}${oldFile}`);
+    } catch (err) {
+      // 删除文件失败仅记录，不停止当前进程
+      console.log(err);
+    }
+    result.set('head_img', name);
+    // TODO返回url
+    await result.save();
+    this.success(name);
+  }
+  // DELETE /api/servie
+  async del() {
+    const { ctx, service } = this;
+    const rule = {
+      id: 'number',
+    };
+    try {
+      ctx.validate(rule);
+    } catch (err) {
+      this.error(errCode.PARAMS_INVALID_EMPTY);
+    }
+    const { id } = ctx.request.body;
+    await service.servies.del(id);
+    this.success();
+  }
+  // POST /api/servies/img
+  async addContentImg() {
+    const { ctx, service } = this;
+    const stream = await ctx.getFileStream();
+    const name = `${getDateTime()}@@${path.basename(stream.filename)}`;
+    if (!isPic(stream)) { // 判断是否图片类型
+      // 必须将上传的文件流消费掉，要不然浏览器响应会卡死
+      await sendToWormhole(stream);
+      this.error(errCode.FILES_TYPE_INVALID);
+    }
+    const filePath = path.join(__dirname, '../../app/public/servies');
+    const file = service.servies.addContentImg(name);
+    fs.writeFileSync(`${filePath}${path.sep}${name}`, stream);
+    this.success(file);
+  }
 }
 module.exports = ServiesController;
