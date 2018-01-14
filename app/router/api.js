@@ -43,5 +43,10 @@ module.exports = app => {
   router.post('/api/servies/img', controller.servies.addContentImg);
   // 服务类型相关
   router.get('/api/servies/type', controller.serviesTypes.getRealtions);
-
+  // 订单相关
+  router.post('/api/orders', controller.orders.create);
+  router.put('/api/orders/pay', controller.orders.pay);
+  router.put('/api/orders/confirm', controller.orders.confirm);
+  router.put('/api/orders/reject', controller.orders.reject);
+  router.put('/api/orders/success', controller.orders.success);
 };

@@ -17,13 +17,10 @@ module.exports = app => {
       type: INTEGER,
       allowNull: false,
     },
-    servies_comment_id: {
-      type: INTEGER,
-      allowNull: false,
-    },
     status: {
       type: INTEGER,
       allowNull: false,
+      comment: '订单状态：-2. 向导拒绝订单 -1. 已失效 0: 待付款 1: 待接收 2: 已确认 3: 售后',
     },
     time: {
       type: DATE,

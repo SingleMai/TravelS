@@ -175,7 +175,7 @@
 | servies_id | int(15) | Foreignkey | 服务，指向`servies`的id |
 | buyer_id | int(15) | Foreignkey | 游客，指向`users`的id |
 | servies_comment_id | int(15) | Foreignkey | 评价，指向`servies_comment`的id |
-| status | int(10) |  | 订单状态：-1. 已失效<br>0: 待付款<br>1: 待接收<br>2: 已确认<br>3: 售后|
+| status | int(10) |  | 订单状态：<br>-2. 向导拒绝订单<br> -1. 已失效<br>0: 待付款<br>1: 待接收<br>2: 已确认<br>3: 售后<br>4:已评价|
 | time | time |  | 创建时间 |
 
 ### wallet 用户钱包
