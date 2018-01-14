@@ -49,4 +49,5 @@ module.exports = app => {
   router.put('/api/orders/confirm', controller.orders.confirm);
   router.put('/api/orders/reject', controller.orders.reject);
   router.put('/api/orders/success', controller.orders.success);
+  router.post('/api/orders/comment', controller.orders.createComment);
 };

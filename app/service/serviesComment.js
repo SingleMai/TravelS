@@ -27,6 +27,9 @@ class ServiesCommentService extends Service {
     }
     return comments;
   }
+  async create(content) {
+
+  }
 }
 
 module.exports = ServiesCommentService;

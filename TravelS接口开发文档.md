@@ -870,12 +870,13 @@
 |--------|-----|----|
 |  |  |  |
 
-### 游客评价订单
+### 游客评价订单// TODO 待页面完成进行更多细节敲定
 接口： `/api/orders/comment`
 类型： `POST`
 
 | 接受参数 | 类型 | 必填 | 描述 |
 |--------|-----|--------|-----|
+| serviesId | int | Y |  |
 | content | string | N | |
 | starts | int | Y | |
 | serviesCommentImg | [Files] | | |
