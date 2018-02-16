@@ -1,6 +1,7 @@
 'use strict';
 
 const Service = require('egg').Service;
+const util = require('../core/utils');
 
 class UsersService extends Service {
 
@@ -32,9 +33,10 @@ class UsersService extends Service {
     return users;
   }
 
-  async getOneMsg(id) {
+  async getOneMsg({ travelsLimit, travelsOffset, id }) {
     const { ctx, service } = this;
-    const user = await service.users.getOne(id);
+    let user = await service.users.getOne(id);
+    user = util.toPath('head', 'public/avator', user);
     // 组装发布服务
     let shopId = await ctx.model.UserShop.findOne({
       where: {
@@ -45,7 +47,13 @@ class UsersService extends Service {
     const servies = await service.servies.getServiesByUser(shopId);
     Object.assign(user, { servies });
     // 组装旅途
-    const travels = await service.travels.getOne(user.id);
+    const travels = await service.travels.getList({
+      offset: travelsOffset,
+      limit: travelsLimit,
+      where: {
+        id: user.id,
+      },
+    });
     Object.assign(user, { travels });
     return user;
   }

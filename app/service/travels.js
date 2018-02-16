@@ -15,15 +15,17 @@ class TravelsService extends Service {
     return result;
   }
 
-  async getList(limit, offset) {
-    const travels = await this.ctx.model.Travels.findAll({
+  async getList({ limit, offset, where }) {
+    const sqlData = {
       limit,
       offset,
       include: [{
         model: this.ctx.model.Users,
         attributes: ['id', 'name', 'head'],
       }],
-    });
+    };
+    if (where) Object.assign(sqlData, { where });
+    const travels = await this.ctx.model.Travels.findAll(sqlData);
     const result = [];
     for (let travel of travels) {
       travel = travel.toJSON();

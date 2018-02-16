@@ -20,8 +20,10 @@ class TravelsController extends Controller {
     };
     try {
       ctx.validate(rule, ctx.query);
-      const { limit, offset } = ctx.query;
-      const result = await service.travels.getList(parseInt(limit), parseInt(offset));
+      let { limit, offset } = ctx.query;
+      limit = parseInt(limit);
+      offset = parseInt(offset);
+      const result = await service.travels.getList({ limit, offset });
       this.success(result);
     } catch (err) {
       this.error(errCode.PARAMS_INVALID_EMPTY);

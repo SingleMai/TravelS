@@ -36,14 +36,19 @@ class UsersController extends Controller {
     const { ctx, service } = this;
     const rule = {
       id: 'id',
+      travelsLimit: 'id',
+      travelsOffset: 'id',
     };
     try {
       ctx.validate(rule, ctx.query);
     } catch (err) {
       this.error(errCode.PARAMS_INVALID_EMPTY, err);
     }
-    const { id } = ctx.query;
-    const result = await service.users.getOneMsg(parseInt(id));
+    let { id, travelsLimit, travelsOffset } = ctx.query;
+    id = parseInt(id);
+    travelsLimit = parseInt(travelsLimit);
+    travelsOffset = parseInt(travelsOffset);
+    const result = await service.users.getOneMsg({ travelsLimit, travelsOffset, id });
     this.success(result);
   }
 
