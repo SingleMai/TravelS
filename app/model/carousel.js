@@ -10,19 +10,19 @@ module.exports = app => {
       primaryKey: true,
     },
     title: {
-      type: STRING(20),
+      type: STRING,
       allowNull: false,
     },
     content: {
-      type: STRING(50),
+      type: STRING,
       allowNull: false,
     },
     carousel: {
-      type: STRING(50),
+      type: STRING,
       allowNull: false,
     },
     link: {
-      type: STRING(50),
+      type: STRING,
       allowNull: false,
     },
     weight: {

@@ -10,11 +10,11 @@ module.exports = app => {
       primaryKey: true,
     },
     head: {
-      type: STRING(50),
+      type: STRING,
       allowNull: false,
     },
     name: {
-      type: STRING(30),
+      type: STRING,
       unique: true,
       allowNull: false,
     },
@@ -26,15 +26,15 @@ module.exports = app => {
       type: INTEGER,
     },
     wetchat: {
-      type: STRING(30),
+      type: STRING,
       unique: true,
     },
     blog: {
-      type: STRING(30),
+      type: STRING,
       unique: true,
     },
     email: {
-      type: STRING(30),
+      type: STRING,
       unique: true,
     },
     instroduction: {
@@ -66,11 +66,11 @@ module.exports = app => {
       allowNull: false,
     },
     city: {
-      type: STRING(30),
+      type: STRING,
       allowNull: false,
     },
     school: {
-      type: STRING(30),
+      type: STRING,
       allowNull: false,
     },
     recommend_id: {

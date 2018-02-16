@@ -8,14 +8,14 @@ class TravelsLikesController extends Controller {
   async create() {
     const { ctx, service } = this;
     const rule = {
-      travelId: 'id',
+      travelId: 'number',
     };
     try {
-      ctx.validate(rule, ctx.query);
+      ctx.validate(rule);
     } catch (err) {
       this.error(errCode.PARAMS_INVALID_EMPTY);
     }
-    const { travelId } = ctx.query;
+    const { travelId } = ctx.request.body;
     const result = await service.travelsLikes.create({
       travel_id: travelId,
     });

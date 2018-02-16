@@ -2,14 +2,14 @@
 const Service = require('egg').Service;
 
 class TravelsCommentService extends Service {
-  async getList(limit, offset, travelsId) {
+  async getList(travelsId) {
     const { ctx, service } = this;
     const comments = await ctx.model.TravelsComment.findAll({
       raw: true,
       attributes: ['id', 'content', 'commenter', 'replyer', 'time'],
       order: [['time', 'DESC']],
-      limit,
-      offset,
+      // limit,
+      // offset,
       where: {
         travel_id: travelsId,
       },

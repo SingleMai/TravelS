@@ -51,17 +51,18 @@ class TravelsCommentController extends Controller {
     };
     try {
       ctx.validate(rule);
-      const { content, replyId, travelId } = ctx.request.body;
-      const result = await service.travelsComment.create({
-        travel_id: travelId,
-        commenter: 1, // TODO获取当前用户的id
-        content,
-        replyer: replyId, // 可选参数
-      });
-      this.success(result);
     } catch (err) {
       this.error(errCode.PARAMS_INVALID_EMPTY);
     }
+    const { content, replyId, travelId } = ctx.request.body;
+    const data = {
+      travel_id: travelId,
+      commenter: 1, // TODO获取当前用户的id
+      content,
+    }
+    if (replyId) Object.assign(data, { replyer: replyId })
+    const result = await service.travelsComment.create(data);
+    this.success(result);
   }
 
   // DELETE /api/travels/comment

@@ -2,6 +2,7 @@
 
 const Service = require('egg').Service;
 const { arrObj2Arr } = require('../core/utils');
+const util = require('../core/utils');
 
 class TravelsService extends Service {
   async create(content) {
@@ -27,14 +28,18 @@ class TravelsService extends Service {
     for (let travel of travels) {
       travel = travel.toJSON();
       const travelsId = travel.id;
-      const oriImgs = await this.ctx.service.travelsImg.getTravelsImg(travelsId);
-      const likes = await this.ctx.service.travelsLikes.getLikesNum(travelsId);
+      let oriImgs = await this.ctx.service.travelsImg.getTravelsImg(travelsId);
+      const likes = await this.ctx.service.travelsLikes.getLikesList(travelsId);
+      const comments = await this.ctx.service.travelsComment.getList(travelsId);
       const isLike = await this.ctx.service.travelsLikes.isLikes(travelsId, 1);// TODO: 接入用户的id
-      if (!oriImgs) continue;
+      oriImgs = util.toPath('img', 'public/travelImg', oriImgs);
       const Imgs = arrObj2Arr(oriImgs, 'img');
+      const user = util.toPath('head', 'public/avator', travel.user);
+      Object.assign(travel, { user });
       Object.assign(travel, { imgs: Imgs });
       Object.assign(travel, { likes });
       Object.assign(travel, { isLike });
+      Object.assign(travel, { comments });
       result.push(travel);
     }
     return result;
@@ -52,13 +57,16 @@ class TravelsService extends Service {
       }],
     });
     travel = travel.toJSON();
-    const oriImgs = await this.ctx.service.travelsImg.getTravelsImg(id);
+    let oriImgs = await this.ctx.service.travelsImg.getTravelsImg(id);
+    const comments = await this.ctx.service.travelsComment.getList(id);
     const isLike = await this.ctx.service.travelsLikes.isLikes(id, 1);// TODO: 接入用户的id
     const likes = await this.ctx.service.travelsLikes.getLikesList(id);
+    oriImgs = util.toPath('img', 'public/travelImg', oriImgs);
     const Imgs = arrObj2Arr(oriImgs, 'img');
     Object.assign(travel, { imgs: Imgs });
     Object.assign(travel, { likes });
     Object.assign(travel, { isLike });
+    Object.assign(travel, { comments });
     return travel;
   }
 

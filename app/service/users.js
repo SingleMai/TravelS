@@ -32,8 +32,27 @@ class UsersService extends Service {
     return users;
   }
 
+  async getOneMsg(id) {
+    const { ctx, service } = this;
+    const user = await service.users.getOne(id);
+    // 组装发布服务
+    let shopId = await ctx.model.UserShop.findOne({
+      where: {
+        user_id: user.id,
+      },
+    });
+    shopId = shopId.id;
+    const servies = await service.servies.getServiesByUser(shopId);
+    Object.assign(user, { servies });
+    // 组装旅途
+    const travels = await service.travels.getOne(user.id);
+    Object.assign(user, { travels });
+    return user;
+  }
+
   async getOne(id) {
     const user = await this.ctx.model.Users.findOne({
+      raw: true,
       attributes: ['id', 'head', 'name', 'sex', 'instroduction',
         'job', 'city',
         ['has_id_card', 'hasIdCard'],

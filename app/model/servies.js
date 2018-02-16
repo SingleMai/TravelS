@@ -18,7 +18,7 @@ module.exports = app => {
       allowNull: false,
     },
     title: {
-      type: STRING(30),
+      type: STRING,
       allowNull: false,
     },
     content: {
@@ -34,11 +34,11 @@ module.exports = app => {
       allowNull: false,
     },
     views: {
-      type: STRING(16),
+      type: STRING,
       allowNull: false,
     },
     likes: {
-      type: STRING(16),
+      type: STRING,
       allowNull: false,
     },
     time: {

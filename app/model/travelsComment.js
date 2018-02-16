@@ -23,6 +23,7 @@ module.exports = app => {
     },
     replyer: {
       type: INTEGER,
+      allowNull: true,
     },
     time: {
       type: DATE,

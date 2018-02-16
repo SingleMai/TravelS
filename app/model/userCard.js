@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = app => {
-  const { STRING, INTEGER, DATE } = app.Sequelize;
+  const { INTEGER, DATE, TEXT } = app.Sequelize;
 
   const UserCard = app.model.define('user_card', {
     id: {
@@ -14,8 +14,7 @@ module.exports = app => {
       allowNull: false,
     },
     card_img: {
-      type: STRING(30),
-      unique: true,
+      type: TEXT('medium'),
       allowNull: false,
     },
     status: {

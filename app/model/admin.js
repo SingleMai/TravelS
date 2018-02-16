@@ -10,16 +10,16 @@ module.exports = app => {
       primaryKey: true,
     },
     name: {
-      type: STRING(16),
+      type: STRING,
       allowNull: false,
     },
     account: {
-      type: STRING(16),
+      type: STRING,
       unique: true,
       allowNull: false,
     },
     password: {
-      type: STRING(16),
+      type: STRING,
       allowNull: false,
     },
     permission: {

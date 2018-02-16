@@ -19,6 +19,7 @@ class TravelsLikesService extends Service {
     });
     const arr = [];
     for (const item of list) {
+      if (item === null || item.user === null) continue;
       arr.push(item.user);
     }
     return arr;
@@ -46,8 +47,17 @@ class TravelsLikesService extends Service {
 
   // 点赞操作
   async create(value) {
-    const result = await this.ctx.model.TravelsLikes.create(value);
-    return result;
+    const result = await this.ctx.model.TravelsLikes.findOrCreate({
+      where: {
+        travel_id: value.travel_id,
+        user_id: 1,
+      },
+      defaults: {
+        travel_id: value.travel_id,
+        user_id: 1,
+      },
+    });
+    return result[0];
   }
   // 取消点赞
   async del(id) {

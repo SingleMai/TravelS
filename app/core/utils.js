@@ -1,4 +1,5 @@
 'use strict';
+const fs = require('fs');
 
 const utils = {};
 
@@ -53,5 +54,18 @@ utils.arrObj2Arr = (list, key) => {
   }
   return arr;
 };
+
+utils.toPath = (key, path, list) => {
+  const serverPath = `http://192.168.1.4:7001/${path}/`;
+  if (list instanceof Array) {
+    for (const i of list) {
+      i[key] = `${serverPath}${i[key]}`;
+    }
+  } else {
+    list[key] = `${serverPath}${list[key]}`;
+  }
+  return list;
+};
+
 
 exports = module.exports = utils;

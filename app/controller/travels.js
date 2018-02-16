@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const Controller = require('../core/baseController');
 const errCode = require('../core/errCode');
+const awaitWriteStream = require('await-stream-ready').write;
 const sendToWormhole = require('stream-wormhole');
 const { isPic, getDateTime } = require('../core/utils');
 
@@ -80,7 +81,8 @@ class TravelsController extends Controller {
         }
         try {
           const name = `${getDateTime()}@@${path.basename(stream.filename)}`;
-          fs.writeFileSync(`${filePath}${path.sep}${name}`, stream);
+          const writeStream = fs.createWriteStream(`${filePath}${path.sep}${name}`);
+          await awaitWriteStream(stream.pipe(writeStream));
           await sendToWormhole(stream);
           files.push(name);
         } catch (err) {

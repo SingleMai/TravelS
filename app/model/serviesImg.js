@@ -13,7 +13,7 @@ module.exports = app => {
       type: INTEGER,
     },
     servies_img: {
-      type: STRING(50),
+      type: STRING,
       allowNull: false,
     },
     time: {

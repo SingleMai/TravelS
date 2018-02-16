@@ -25,8 +25,22 @@ class ServiesService extends Service {
 
   async getOne(id) {
     const result = this.ctx.model.Servies.findOne({
+      raw: true,
       where: {
         id,
+      },
+      attributes: ['id', ['head_img', 'headImg'],
+        'title', 'content', 'price', ['type_id', 'type'],
+        'views', 'likes', 'time'],
+    });
+    return result;
+  }
+
+  async getServiesByUser(shopId) {
+    const result = this.ctx.model.Servies.findAll({
+      raw: true,
+      where: {
+        shop_id: shopId,
       },
       attributes: ['id', ['head_img', 'headImg'],
         'title', 'content', 'price', ['type_id', 'type'],
