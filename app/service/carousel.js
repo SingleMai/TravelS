@@ -3,6 +3,7 @@
 const Service = require('egg').Service;
 const fs = require('fs');
 const path = require('path');
+const util = require('../core/utils');
 
 class CarouselService extends Service {
   // 创建轮播图
@@ -34,13 +35,15 @@ class CarouselService extends Service {
   }
 
   async getBySite(site) {
-    const carousels = await this.ctx.model.Carousel.findAll({
+    let carousels = await this.ctx.model.Carousel.findAll({
+      raw: true,
       attributes: ['id', 'title', 'content', 'carousel', 'link'],
       order: [['weight', 'DESC']],
       where: {
         site,
       },
     });
+    carousels = util.toPath('carousel', 'public/carousel', carousels);
     return carousels;
   }
 }
