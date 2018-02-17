@@ -13,6 +13,10 @@ module.exports = app => {
       type: INTEGER,
       allowNull: false,
     },
+    user_id: {
+      type: INTEGER,
+      allowNull: false,
+    },
     order_id: {
       type: INTEGER,
       allowNull: false,

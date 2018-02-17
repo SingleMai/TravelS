@@ -3,6 +3,7 @@
 const Service = require('egg').Service;
 const fs = require('fs');
 const path = require('path');
+const util = require('../core/utils');
 const filePath = path.join(__dirname, '../../app/public/servies');
 
 class ServiesService extends Service {
@@ -24,15 +25,23 @@ class ServiesService extends Service {
   }
 
   async getOne(id) {
-    const result = this.ctx.model.Servies.findOne({
+    const { ctx, service } = this;
+    let result = await ctx.model.Servies.findOne({
       raw: true,
       where: {
         id,
       },
-      attributes: ['id', ['head_img', 'headImg'],
+      attributes: ['id', ['shop_id', 'shopId'], ['head_img', 'headImg'],
         'title', 'content', 'price', ['type_id', 'type'],
         'views', 'likes', 'time'],
     });
+    const shopId = await service.userShop._getOne(result.shopId);
+    const comments = await service.serviesComment.getList(result.id);
+    let user = await service.users.getOne(shopId.id);
+    user = util.toPath('head', 'public/avator', user);
+    Object.assign(result, { user });
+    Object.assign(result, { comments });
+    result = util.toPath('headImg', 'public/servies', result);
     return result;
   }
 

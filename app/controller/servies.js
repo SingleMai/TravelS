@@ -2,6 +2,7 @@
 
 const Controller = require('../core/baseController');
 const errCode = require('../core/errCode');
+const awaitWriteStream = require('await-stream-ready').write;
 const sendToWormhole = require('stream-wormhole');
 const { isPic, getDateTime } = require('../core/utils');
 const path = require('path');
@@ -84,7 +85,8 @@ class ServiesController extends Controller {
     };
     const result = await service.servies.create(values);
     const filePath = path.join(__dirname, '../../app/public/servies');
-    fs.writeFileSync(`${filePath}${path.sep}${name}`, stream);
+    const writeStream = fs.createWriteStream(`${filePath}${path.sep}${name}`);
+    await awaitWriteStream(stream.pipe(writeStream));
     this.success(result);
   }
   // PUT /api/servie
@@ -141,7 +143,8 @@ class ServiesController extends Controller {
       this.error(errCode.NOT_FOUND);
     }
     const filePath = path.join(__dirname, '../../app/public/servies');
-    fs.writeFileSync(`${filePath}${path.sep}${name}`, stream);
+    const writeStream = fs.createWriteStream(`${filePath}${path.sep}${name}`);
+    await awaitWriteStream(stream.pipe(writeStream));
     const oldFile = result.get('headImg');
     try {
       fs.unlinkSync(`${filePath}${path.sep}${oldFile}`);
@@ -181,7 +184,8 @@ class ServiesController extends Controller {
     }
     const filePath = path.join(__dirname, '../../app/public/servies');
     const file = service.servies.addContentImg(name);
-    fs.writeFileSync(`${filePath}${path.sep}${name}`, stream);
+    const writeStream = fs.createWriteStream(`${filePath}${path.sep}${name}`);
+    await awaitWriteStream(stream.pipe(writeStream));
     this.success(file);
   }
 }
