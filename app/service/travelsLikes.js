@@ -47,14 +47,15 @@ class TravelsLikesService extends Service {
 
   // 点赞操作
   async create(value) {
-    const result = await this.ctx.model.TravelsLikes.findOrCreate({
+    const { ctx } = this;
+    const result = await ctx.model.TravelsLikes.findOrCreate({
       where: {
         travel_id: value.travel_id,
-        user_id: 1,
+        user_id: ctx.user.id,
       },
       defaults: {
         travel_id: value.travel_id,
-        user_id: 1,
+        user_id: ctx.user.id,
       },
     });
     return result[0];

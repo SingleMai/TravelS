@@ -57,7 +57,7 @@ class TravelsCommentController extends Controller {
     const { content, replyId, travelId } = ctx.request.body;
     const data = {
       travel_id: travelId,
-      commenter: 1, // TODO获取当前用户的id
+      commenter: ctx.user.id,
       content,
     }
     if (replyId) Object.assign(data, { replyer: replyId })

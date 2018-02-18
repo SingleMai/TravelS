@@ -76,9 +76,13 @@ class UsersService extends Service {
         user_id: user.id,
       },
     });
-    shopId = shopId.id;
-    const servies = await service.servies.getServiesByUser(shopId);
-    Object.assign(user, { servies });
+    if (shopId !== null) {
+      shopId = shopId.id;
+      const servies = await service.servies.getServiesByUser(shopId);
+      Object.assign(user, { servies });
+    } else {
+      Object.assign(user, { servies: [] });
+    }
     // 组装旅途
     const travels = await service.travels.getList({
       offset: travelsOffset,

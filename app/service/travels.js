@@ -8,7 +8,7 @@ class TravelsService extends Service {
   async create(content) {
     const { ctx } = this;
     const result = await ctx.model.Travels.create({
-      user_id: ctx.user.id, // TODO 接入用户id
+      user_id: ctx.user.id,
       content,
       views: 0,
       time: new Date(),
@@ -17,31 +17,32 @@ class TravelsService extends Service {
   }
 
   async getList({ limit, offset, where }) {
+    const { ctx } = this;
     const sqlData = {
       limit,
       offset,
       include: [{
-        model: this.ctx.model.Users,
+        model: ctx.model.Users,
         attributes: ['id', 'name', 'head'],
       }],
     };
     if (where) Object.assign(sqlData, { where });
-    const travels = await this.ctx.model.Travels.findAll(sqlData);
+    const travels = await ctx.model.Travels.findAll(sqlData);
     const result = [];
     for (let travel of travels) {
       travel = travel.toJSON();
       const travelsId = travel.id;
-      let oriImgs = await this.ctx.service.travelsImg.getTravelsImg(travelsId);
-      const likes = await this.ctx.service.travelsLikes.getLikesList(travelsId);
-      const comments = await this.ctx.service.travelsComment.getList(travelsId);
-      const isLike = await this.ctx.service.travelsLikes.isLikes(travelsId, 1);// TODO: 接入用户的id
+      let oriImgs = await ctx.service.travelsImg.getTravelsImg(travelsId);
+      const likes = await ctx.service.travelsLikes.getLikesList(travelsId);
+      const comments = await ctx.service.travelsComment.getList(travelsId);
+      // const isLike = await ctx.service.travelsLikes.isLikes(travelsId, ctx.user.id);
       oriImgs = util.toPath('img', 'public/travelImg', oriImgs);
       const Imgs = arrObj2Arr(oriImgs, 'img');
       const user = util.toPath('head', 'public/avator', travel.user);
       Object.assign(travel, { user });
       Object.assign(travel, { imgs: Imgs });
       Object.assign(travel, { likes });
-      Object.assign(travel, { isLike });
+      // Object.assign(travel, { isLike });
       Object.assign(travel, { comments });
       result.push(travel);
     }

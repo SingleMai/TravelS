@@ -12,9 +12,9 @@ module.exports = app => {
   router.delete('/api/travel', controller.travels.del);
   router.get('/api/travels/comments', controller.travelsComment.getList);
   router.get('/api/travels/comment', controller.travelsComment.getOne);
-  router.post('/api/travels/comment', controller.travelsComment.create);
+  router.post('/api/travels/comment', authLogin, controller.travelsComment.create);
   router.delete('/api/travels/comment', controller.travelsComment.del);
-  router.post('/api/travels/likes', controller.travelsLikes.create);
+  router.post('/api/travels/likes', authLogin, controller.travelsLikes.create);
   router.delete('/api/travels/likes', controller.travelsLikes.del);
 
   // 用户相关
