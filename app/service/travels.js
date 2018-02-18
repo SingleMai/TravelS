@@ -6,8 +6,9 @@ const util = require('../core/utils');
 
 class TravelsService extends Service {
   async create(content) {
-    const result = await this.ctx.model.Travels.create({
-      user_id: 1, // TODO 接入用户id
+    const { ctx } = this;
+    const result = await ctx.model.Travels.create({
+      user_id: ctx.user.id, // TODO 接入用户id
       content,
       views: 0,
       time: new Date(),

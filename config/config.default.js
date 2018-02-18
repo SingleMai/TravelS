@@ -14,6 +14,11 @@ module.exports = appInfo => {
 
   config.sequelize = sequelizeConfig;
 
+  config.jwt = {
+    secret: 'goDuxIen27GrPjrE2Y9HoKXPuYVNxbrw',
+    expiresIn: '1h',
+  };
+
   // 加载 errorHandler 中间件
   config.middleware = ['errorHandler'];
   // 只对 /api 前缀的 url 路径生效

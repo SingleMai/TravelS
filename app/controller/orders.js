@@ -24,7 +24,7 @@ class OrdersController extends Controller {
     const { serviesId } = ctx.request.body;
     const result = service.orders.create({
       servies_id: serviesId,
-      buyer_id: 2, // TODO 待接入登录状态，更换为用户id
+      buyer_id: 1, // TODO 待接入登录状态，更换为用户id
       time: new Date(),
       status: 0,
     });

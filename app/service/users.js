@@ -2,8 +2,41 @@
 
 const Service = require('egg').Service;
 const util = require('../core/utils');
+const errCode = require('../core/errCode');
+const jwt = require('../tools/jwt.js');
 
 class UsersService extends Service {
+  // 通过邮件的方式获取token
+  * getToken($this, email) {
+    let result = yield this.ctx.model.Users.findOne({
+      raw: true,
+      attributes: ['email', 'id', 'head', 'name', 'sex'],
+      where: {
+        email,
+      },
+    });
+    if (result === null) $this.error(errCode.EMAIL_ERROR);
+    result = util.toPath('head', 'public/avator', result);
+    const token = jwt.sign(this.app.config, result);
+    yield this.ctx.$email.sendEmail({
+      to: email,
+      subject: 'Travels 登录验证码',
+      html: `<h4>您本次登录的验证码为:${token}</h4>`,
+    });
+  }
+
+  // 登录操作
+  * login($this, email, token) {
+    try {
+      const origDate = yield jwt.verify(this.app.config, token);
+      if (origDate.email !== email) {
+        $this.error(errCode.LOGIN_ERROR);
+      }
+      return origDate;
+    } catch (err) {
+      $this.error(errCode.LOGIN_ERROR, err);
+    }
+  }
 
   async _getIdName(id) {
     const users = await this.ctx.model.Users.findOne({

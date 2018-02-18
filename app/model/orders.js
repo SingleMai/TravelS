@@ -9,6 +9,10 @@ module.exports = app => {
       autoIncrement: true,
       primaryKey: true,
     },
+    num: {
+      type: INTEGER,
+      allowNull: false,
+    },
     servies_id: {
       type: INTEGER,
       allowNull: false,

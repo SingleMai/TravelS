@@ -9,12 +9,39 @@ const sendToWormhole = require('stream-wormhole');
 const { isPic, getDateTime } = require('../core/utils');
 
 class UsersController extends Controller {
-  // GET /api/token
-  async token() {
-    const { ctx } = this;
-    ctx.body = 1;
-    ctx.status = 201;
+  // GET /api/getToken
+  * getToken() {
+    const { ctx, service } = this;
+    const rule = {
+      email: 'email',
+    };
+    try {
+      ctx.validate(rule, ctx.query);
+    } catch (err) {
+      this.error(errCode.PARAMS_INVALID_EMPTY);
+    }
+    const { email } = ctx.query;
+    yield service.users.getToken(this, email);
+    this.success();
   }
+
+  // POST /api/login
+  * login() {
+    const { ctx, service } = this;
+    const rule = {
+      email: 'email',
+      token: 'string',
+    };
+    try {
+      ctx.validate(rule);
+    } catch (err) {
+      this.error(errCode.PARAMS_INVALID_EMPTY);
+    }
+    const { email, token } = ctx.request.body;
+    const origData = yield service.users.login(this, email, token);
+    this.success({ token, origData });
+  }
+
   // GET /api/users
   async getList() {
     const { ctx, service } = this;
