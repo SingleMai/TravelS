@@ -31,7 +31,7 @@ class FriendshipController extends Controller {
     this.success(result);
   }
 
-  async del () {
+  async del() {
     const { ctx, service } = this;
     const rule = {
       friendId: 'number',

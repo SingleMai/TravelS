@@ -2,6 +2,7 @@
 
 const Service = require('egg').Service;
 const errCode = require('../core/errCode');
+const util = require('../core/utils');
 
 class FriendshipService extends Service {
   // 添加好友
@@ -25,11 +26,26 @@ class FriendshipService extends Service {
     const id = ctx.user.id;
     const friends = await ctx.model.Friendship.findAll({
       raw: true,
+      attributes: [['friend_id', 'friendId']],
       where: {
         user_id: id,
       },
     });
-    return friends;
+    const result = [];
+    for (const friend of friends) {
+      let user = await ctx.model.Users.findOne({
+        raw: true,
+        attributes: ['email', 'id', 'head', 'name', 'sex'],
+        where: {
+          id: friend.friendId,
+        },
+      });
+      if (user !== null) {
+        user = util.toPath('head', 'public/avator', user);
+        result.push(user);
+      }
+    }
+    return result;
   }
 
   async del($this, { friendId }) {

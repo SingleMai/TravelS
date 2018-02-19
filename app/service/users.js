@@ -18,11 +18,12 @@ class UsersService extends Service {
     if (result === null) $this.error(errCode.EMAIL_ERROR);
     result = util.toPath('head', 'public/avator', result);
     const token = jwt.sign(this.app.config, result);
-    yield this.ctx.$email.sendEmail({
-      to: email,
-      subject: 'Travels 登录验证码',
-      html: `<h4>您本次登录的验证码为:${token}</h4>`,
-    });
+    console.log(token);
+    // yield this.ctx.$email.sendEmail({
+    //   to: email,
+    //   subject: 'Travels 登录验证码',
+    //   html: `<h4>您本次登录的验证码为:${token}</h4>`,
+    // });
   }
 
   // 登录操作

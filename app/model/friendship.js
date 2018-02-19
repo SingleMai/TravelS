@@ -19,11 +19,11 @@ module.exports = app => {
     },
     name: {
       type: STRING,
-      allowNull: false,
       comment: '备注名',
     },
   }, {
     tableName: 'friendship',
+    timestamps: false,
   });
   Friendship.sync();
   return Friendship;

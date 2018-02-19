@@ -13,6 +13,24 @@ class ChatHistoryController extends Controller {
       this.success(data);
     }
   }
+
+  async getOneChatByOne() {
+    const { ctx, service } = this;
+    const rule = {
+      friendId: 'id',
+    };
+    try {
+      ctx.validate(rule, ctx.query);
+    } catch (err) {
+      this.error(errCode.PARAMS_INVALID_EMPTY);
+    }
+    let { friendId } = ctx.query;
+    friendId = parseInt(friendId);
+    const result = await service.chatHistory.getOneChatByOne({
+      friendId,
+    });
+    this.success(result);
+  }
   // POST /api/chat
   async create() {
     const { ctx, service } = this;

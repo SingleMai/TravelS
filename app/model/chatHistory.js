@@ -32,6 +32,7 @@ module.exports = app => {
     }
   }, {
     tableName: 'chatHistory',
+    timestamps: false,
   });
   ChatHistory.sync();
   return ChatHistory;

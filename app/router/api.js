@@ -26,11 +26,12 @@ module.exports = app => {
   router.post('/api/users/avator', controller.users.updateAvator);
   router.put('/api/users', controller.users.updateUser);
   // 用户聊天
-  router.get('/api/friend', controller.friendship.getList);
-  router.post('/api/friend', controller.friendship.create);
-  router.delete('/api/friend', controller.friendship.del);
-  router.get('/api/chat', controller.chatHistory.getOneChat);
-  router.post('/api/chat', controller.chatHistory.create);
+  router.get('/api/friend', authLogin, controller.friendship.getList);
+  router.post('/api/friend', authLogin, controller.friendship.create);
+  router.delete('/api/friend', authLogin, controller.friendship.del);
+  router.get('/api/chat', authLogin, controller.chatHistory.getOneChatByOne);
+  router.get('/api/chats', authLogin, controller.chatHistory.getOneChat);
+  router.post('/api/chat', authLogin, controller.chatHistory.create);
   // 用户收藏相关
   router.get('/api/users/servies/likes/:userId', controller.users.getServiesLikes);
   router.post('/api/users/servies/likes', controller.users.createServiesLikes);
