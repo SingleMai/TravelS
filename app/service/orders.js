@@ -22,7 +22,7 @@ class OrdersService extends Service {
     order.status = -2;
     order.save();
   }
-  async success(id) {
+  async successed(id) {
     const order = await this.ctx.model.Orders.findOne({ where: { id } });
     order.status = 3;
     order.save();

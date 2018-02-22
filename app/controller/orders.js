@@ -15,20 +15,31 @@ class OrdersController extends Controller {
     const { ctx, service } = this;
     const rule = {
       serviesId: 'number',
+      num: 'number',
+      travelTime: 'date',
+      count: 'number',
     };
     try {
       ctx.validate(rule);
     } catch (err) {
       this.error(errCode.PARAMS_INVALID_EMPTY);
     }
-    const { serviesId } = ctx.request.body;
-    const result = service.orders.create({
-      servies_id: serviesId,
-      buyer_id: 1, // TODO 待接入登录状态，更换为用户id
-      time: new Date(),
-      status: 0,
-    });
-    this.success(result);
+    const { serviesId, num, travelTime, count } = ctx.request.body;
+    try {
+      const result = await service.orders.create({
+        servies_id: serviesId,
+        buyer_id: ctx.user.id,
+        time: new Date(),
+        status: 0,
+        num,
+        count,
+        travel_time: travelTime,
+      });
+      this.success(result);
+    } catch (err) {
+      console.log(err);
+      this.error(errCode.INTERNAL_SERVER_ERROR);
+    }
   }
   // PUT /api/orders/pay
   async pay() {
@@ -42,7 +53,7 @@ class OrdersController extends Controller {
       this.error(errCode.PARAMS_INVALID_EMPTY);
     }
     const { id } = ctx.request.body;
-    const result = service.orders.pay(id);
+    const result = await service.orders.pay(id);
     this.success(result);
   }
   // PUT /api/orders/confirm
@@ -57,7 +68,7 @@ class OrdersController extends Controller {
       this.error(errCode.PARAMS_INVALID_EMPTY);
     }
     const { id } = ctx.request.body;
-    const result = service.orders.confirm(id);
+    const result = await service.orders.confirm(id);
     this.success(result);
   }
   // PUT /api/orders/reject
@@ -72,11 +83,11 @@ class OrdersController extends Controller {
       this.error(errCode.PARAMS_INVALID_EMPTY);
     }
     const { id } = ctx.request.body;
-    const result = service.orders.reject(id);
+    const result = await service.orders.reject(id);
     this.success(result);
   }
   // PUT /api/orders/success
-  async success() {
+  async successed() {
     const { ctx, service } = this;
     const rule = {
       id: 'number',
@@ -87,7 +98,7 @@ class OrdersController extends Controller {
       this.error(errCode.PARAMS_INVALID_EMPTY);
     }
     const { id } = ctx.request.body;
-    const result = service.orders.success(id);
+    const result = await service.orders.successed(id);
     this.success(result);
   }
   // POST /api/orders/comment //TODO 需要更多细节敲定
