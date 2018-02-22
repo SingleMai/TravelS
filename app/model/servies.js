@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = app => {
-  const { STRING, INTEGER, DATE } = app.Sequelize;
+  const { STRING, INTEGER, TEXT, DATE } = app.Sequelize;
 
   const Servies = app.model.define('servies', {
     id: {
@@ -22,7 +22,7 @@ module.exports = app => {
       allowNull: false,
     },
     content: {
-      type: STRING,
+      type: TEXT('long'),
       allowNull: false,
     },
     price: {

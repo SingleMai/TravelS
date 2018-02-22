@@ -4,7 +4,7 @@ const Controller = require('../core/baseController');
 const errCode = require('../core/errCode');
 const awaitWriteStream = require('await-stream-ready').write;
 const sendToWormhole = require('stream-wormhole');
-const { isPic, getDateTime } = require('../core/utils');
+const { isPic, getDateTime, toPath } = require('../core/utils');
 const path = require('path');
 const fs = require('fs');
 
@@ -183,9 +183,10 @@ class ServiesController extends Controller {
       this.error(errCode.FILES_TYPE_INVALID);
     }
     const filePath = path.join(__dirname, '../../app/public/servies');
-    const file = service.servies.addContentImg(name);
+    let file = await service.servies.addContentImg(name);
     const writeStream = fs.createWriteStream(`${filePath}${path.sep}${name}`);
     await awaitWriteStream(stream.pipe(writeStream));
+    file = toPath('servies_img', 'public/servies', file);
     this.success(file);
   }
 }
