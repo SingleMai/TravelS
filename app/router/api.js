@@ -53,6 +53,7 @@ module.exports = app => {
   // 服务类型相关
   router.get('/api/servies/type', controller.serviesTypes.getRealtions);
   // 订单相关
+  router.get('/api/user/orders/book', authLogin, controller.orders.getUserBookOrders);
   router.post('/api/orders', authLogin, controller.orders.create);
   router.put('/api/orders/pay', controller.orders.pay);
   router.put('/api/orders/confirm', controller.orders.confirm);

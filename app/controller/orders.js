@@ -10,6 +10,13 @@ const { isPic, getDateTime } = require('../core/utils');
 const filePath = path.join(__dirname, '../../app/public/servies-comment');
 
 class OrdersController extends Controller {
+  // 获取用户预订未支付的订单
+  async getUserBookOrders () {
+    const { service } = this;
+    const result = await service.orders.getUserBookOrders();
+    this.success(result);
+  }
+
   // POST /api/orders // TODO 待接入支付状态
   async create() {
     const { ctx, service } = this;
