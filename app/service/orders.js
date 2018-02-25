@@ -15,16 +15,26 @@ class OrdersService extends Service {
     });
     for (const order of orders) {
       const servies = await service.servies.getOne(order.servies_id);
-      result.push({
-        servies,
-        order,
+      Object.assign(servies, {
+        orderId: order.id,
+        count: order.count,
+        num: order.num,
+        status: order.status,
+        TravelTime: order.travel_time,
       });
+      result.push(servies);
     }
     return result;
   }
   // 创建订单
   async create(data) {
     return await this.ctx.model.Orders.create(data);
+  }
+  async cancel(id) {
+    const order = await this.ctx.model.Orders.findOne({ where: { id } });
+    console.log(order)
+    order.status = -1;
+    order.save();
   }
   async pay(id) {
     const order = await this.ctx.model.Orders.findOne({ where: { id } });

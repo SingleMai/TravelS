@@ -29,6 +29,30 @@ class TravelsController extends Controller {
       this.error(errCode.PARAMS_INVALID_EMPTY);
     }
   }
+
+  async getOneList() {
+    const { ctx, service } = this;
+    const rule = {
+      offset: 'string',
+      limit: 'string',
+    };
+    try {
+      ctx.validate(rule, ctx.query);
+    } catch (err) {
+      this.error(errCode.PARAMS_INVALID_EMPTY);
+    }
+    let { offset, limit } = ctx.query;
+    offset = parseInt(offset);
+    limit = parseInt(limit);
+    const travels = await service.travels.getList({
+      offset,
+      limit,
+      where: {
+        id: ctx.user.id,
+      },
+    });
+    this.success(travels);
+  }
   // GET api/travels/:id
   async getOne() {
     const { ctx, service } = this;

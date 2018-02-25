@@ -8,6 +8,7 @@ module.exports = app => {
   // travels 相关
   router.get('/api/travels', controller.travels.getList);
   router.get('/api/travel', controller.travels.getOne);
+  router.get('/api/travel/user', authLogin, controller.travels.getOneList);
   router.post('/api/travels', authLogin, controller.travels.create);
   router.delete('/api/travel', controller.travels.del);
   router.get('/api/travels/comments', controller.travelsComment.getList);
@@ -55,6 +56,7 @@ module.exports = app => {
   // 订单相关
   router.get('/api/user/orders/book', authLogin, controller.orders.getUserBookOrders);
   router.post('/api/orders', authLogin, controller.orders.create);
+  router.put('/api/orders/cancel', controller.orders.cancel);
   router.put('/api/orders/pay', controller.orders.pay);
   router.put('/api/orders/confirm', controller.orders.confirm);
   router.put('/api/orders/reject', controller.orders.reject);

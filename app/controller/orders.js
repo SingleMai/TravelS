@@ -48,6 +48,21 @@ class OrdersController extends Controller {
       this.error(errCode.INTERNAL_SERVER_ERROR);
     }
   }
+  // PUT /api/orders/cancel
+  async cancel () {
+    const { ctx, service } = this;
+    const rule = {
+      id: 'number',
+    };
+    try {
+      ctx.validate(rule);
+    } catch (err) {
+      this.error(errCode.PARAMS_INVALID_EMPTY);
+    }
+    const { id } = ctx.request.body;
+    const result = await service.orders.cancel(id);
+    this.success(result);
+  }
   // PUT /api/orders/pay
   async pay() {
     const { ctx, service } = this;
