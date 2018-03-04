@@ -11,9 +11,15 @@ const filePath = path.join(__dirname, '../../app/public/servies-comment');
 
 class OrdersController extends Controller {
   // 获取用户预订未支付的订单
-  async getUserBookOrders () {
+  async getUserBookOrders() {
     const { service } = this;
-    const result = await service.orders.getUserBookOrders();
+    const result = await service.orders.getUserOrdersByStatus(0);
+    this.success(result);
+  }
+
+  async getUserUnaccept() {
+    const { service } = this;
+    const result = await service.orders.getUserOrdersByStatus(1);
     this.success(result);
   }
 

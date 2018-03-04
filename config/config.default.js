@@ -16,7 +16,7 @@ module.exports = appInfo => {
 
   config.jwt = {
     secret: 'goDuxIen27GrPjrE2Y9HoKXPuYVNxbrw',
-    expiresIn: '1h',
+    expiresIn: '15 days',
   };
 
   // 加载 errorHandler 中间件

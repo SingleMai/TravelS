@@ -55,6 +55,7 @@ module.exports = app => {
   router.get('/api/servies/type', controller.serviesTypes.getRealtions);
   // 订单相关
   router.get('/api/user/orders/book', authLogin, controller.orders.getUserBookOrders);
+  router.get('/api/user/orders/unaccept', authLogin, controller.orders.getUserUnaccept);
   router.post('/api/orders', authLogin, controller.orders.create);
   router.put('/api/orders/cancel', controller.orders.cancel);
   router.put('/api/orders/pay', controller.orders.pay);

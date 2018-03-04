@@ -3,14 +3,14 @@
 const Service = require('egg').Service;
 
 class OrdersService extends Service {
-  async getUserBookOrders() {
+  async getUserOrdersByStatus(status) {
     const { ctx, service } = this;
     const result = [];
     const orders = await ctx.model.Orders.findAll({
       raw: true,
       where: {
         buyer_id: ctx.user.id,
-        status: 0,
+        status,
       },
     });
     for (const order of orders) {
@@ -26,6 +26,7 @@ class OrdersService extends Service {
     }
     return result;
   }
+
   // 创建订单
   async create(data) {
     return await this.ctx.model.Orders.create(data);
