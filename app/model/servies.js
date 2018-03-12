@@ -29,9 +29,8 @@ module.exports = app => {
       type: INTEGER,
       allowNull: false,
     },
-    type_id: {
-      type: INTEGER,
-      allowNull: false,
+    type: {
+      type: STRING('1020')
     },
     views: {
       type: STRING,

@@ -23,6 +23,18 @@ class OrdersController extends Controller {
     this.success(result);
   }
 
+  async getUserConfirmed() {
+    const { service } = this;
+    const result = await service.orders.getUserOrdersByStatus(2);
+    this.success(result);
+  }
+
+  async getUserFinish() {
+    const { service } = this;
+    const result = await service.orders.getUserOrdersByStatus(3);
+    this.success(result);
+  }
+
   // POST /api/orders // TODO 待接入支付状态
   async create() {
     const { ctx, service } = this;

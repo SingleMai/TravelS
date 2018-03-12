@@ -45,7 +45,7 @@ module.exports = app => {
   // 服务相关
   router.get('/api/servies', controller.servies.getList);
   router.get('/api/servie', controller.servies.getOne);
-  router.post('/api/servie', controller.servies.create);
+  router.post('/api/servie', authLogin, controller.servies.create);
   router.delete('/api/servie', controller.servies.del);
   router.put('/api/servie', controller.servies.update);
   router.get('/api/servie/comment/:serviesId', controller.serviesComment.getList);
@@ -56,6 +56,8 @@ module.exports = app => {
   // 订单相关
   router.get('/api/user/orders/book', authLogin, controller.orders.getUserBookOrders);
   router.get('/api/user/orders/unaccept', authLogin, controller.orders.getUserUnaccept);
+  router.get('/api/user/orders/confirmed', authLogin, controller.orders.getUserConfirmed);
+  router.get('/api/user/orders/finish', authLogin, controller.orders.getUserFinish);
   router.post('/api/orders', authLogin, controller.orders.create);
   router.put('/api/orders/cancel', controller.orders.cancel);
   router.put('/api/orders/pay', controller.orders.pay);

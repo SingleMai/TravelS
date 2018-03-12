@@ -15,18 +15,20 @@ class ServiesController extends Controller {
     const rule = {
       limit: 'id',
       offset: 'id',
+      query: { type: 'string', required: false }
     };
     try {
       ctx.validate(rule, ctx.query);
     } catch (err) {
       this.error(errCode.PARAMS_INVALID_EMPTY);
     }
-    let { limit, offset } = ctx.query;
+    let { limit, offset, query } = ctx.query;
     limit = parseInt(limit);
     offset = parseInt(offset);
     const result = await service.servies.getList({
       limit,
       offset,
+      query
     });
     this.success(result);
   }
@@ -63,7 +65,7 @@ class ServiesController extends Controller {
       title: 'string',
       content: 'string',
       price: 'string',
-      typeId: 'string',
+      type: 'string',
     };
     try {
       ctx.validate(rule, stream.fields);
@@ -77,8 +79,8 @@ class ServiesController extends Controller {
       title: data.title,
       content: data.content,
       price: parseFloat(data.price),
-      type_id: parseInt(data.typeId),
-      shop_id: 1, // TODO 待登录态写入真实数据
+      type: data.type,
+      shop_id: ctx.user.id,
       views: 0,
       likes: 0,
       time: new Date(),
@@ -97,20 +99,20 @@ class ServiesController extends Controller {
       title: 'string',
       content: 'string',
       price: 'number',
-      typeId: 'number',
+      type: 'number',
     };
     try {
       ctx.validate(rule);
     } catch (err) {
       this.error(errCode.PARAMS_INVALID_EMPTY);
     }
-    const { id, title, content, price, typeId } = ctx.request.body;
+    const { id, title, content, price, type } = ctx.request.body;
     try {
       const result = await service.servies.update(id, {
         title,
         content,
         price,
-        type_id: typeId,
+        type,
       });
       this.success(result);
     } catch (err) {

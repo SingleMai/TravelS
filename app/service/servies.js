@@ -12,17 +12,42 @@ class ServiesService extends Service {
     return result;
   }
 
-  async getList({ limit, offset }) {
+  async getList({ limit, offset, query }) {
     const { ctx, service } = this;
-    const result = await ctx.model.Servies.findAll({
-      raw: true,
-      limit,
-      offset,
-      order: [['time', 'DESC']],
-      attributes: ['id', 'title', 'price', 'views', 'likes', 'time', ['shop_id', 'shopId'],
-        ['head_img', 'headImg'],
-        ['type_id', 'typeId']],
-    });
+    let result = []
+    if (!query) {
+      result = await ctx.model.Servies.findAll({
+        raw: true,
+        limit,
+        offset,
+        order: [['time', 'DESC']],
+        attributes: ['id', 'title', 'price', 'views', 'likes', 'time', ['shop_id', 'shopId'],
+          ['head_img', 'headImg'],
+          'type'],
+      });
+    } else {
+      const data1 = await ctx.model.Servies.findAll({
+        raw: true,
+        limit,
+        offset,
+        order: [['time', 'DESC']],
+        where: { title: { $like: `%${query}%` } },
+        attributes: ['id', 'title', 'price', 'views', 'likes', 'time', ['shop_id', 'shopId'],
+          ['head_img', 'headImg'],
+          'type'],
+      });
+      const data2 = await ctx.model.Servies.findAll({
+        raw: true,
+        limit,
+        offset,
+        order: [['time', 'DESC']],
+        where: { type: { $like: `%${query}%` } },
+        attributes: ['id', 'title', 'price', 'views', 'likes', 'time', ['shop_id', 'shopId'],
+          ['head_img', 'headImg'],
+          'type'],
+      });
+      result = [...data1, ...data2]
+    }
     for (let item of result) {
       item = util.toPath('headImg', 'public/servies', item);
       const userId = await ctx.model.UserShop.findOne({ where: { id: item.shopId } });
@@ -40,13 +65,13 @@ class ServiesService extends Service {
         id,
       },
       attributes: ['id', ['shop_id', 'shopId'], ['head_img', 'headImg'],
-        'title', 'content', 'price', ['type_id', 'type'],
+        'title', 'content', 'price', 'type',
         'views', 'likes', 'time'],
     });
     const shopId = await service.userShop._getOne(result.shopId);
     const comments = await service.serviesComment.getList(result.id);
-    let user = await service.users.getOne(shopId.id);
-    user = util.toPath('head', 'public/avator', user);
+    const user = await service.users.getOne(shopId.id);
+    // user = util.toPath('head', 'public/avator', user);
     Object.assign(result, { user });
     Object.assign(result, { comments });
     result = util.toPath('headImg', 'public/servies', result);
@@ -60,7 +85,7 @@ class ServiesService extends Service {
         shop_id: shopId,
       },
       attributes: ['id', ['head_img', 'headImg'],
-        'title', 'content', 'price', ['type_id', 'type'],
+        'title', 'content', 'price', 'type',
         'views', 'likes', 'time'],
     });
     return result;
@@ -74,7 +99,7 @@ class ServiesService extends Service {
   async update(id, values) {
     const data = await this.ctx.model.Servies.update(values, {
       where: { id },
-      fileds: ['title', 'content', 'price', 'typeId'],
+      fileds: ['title', 'content', 'price', 'type'],
     });
     return data;
   }
