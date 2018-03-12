@@ -13,14 +13,22 @@ class ServiesService extends Service {
   }
 
   async getList({ limit, offset }) {
-    const result = this.ctx.model.Servies.findAll({
+    const { ctx, service } = this;
+    const result = await ctx.model.Servies.findAll({
+      raw: true,
       limit,
       offset,
       order: [['time', 'DESC']],
-      attributes: ['id', 'title', 'price', 'views', 'likes', 'time',
+      attributes: ['id', 'title', 'price', 'views', 'likes', 'time', ['shop_id', 'shopId'],
         ['head_img', 'headImg'],
         ['type_id', 'typeId']],
     });
+    for (let item of result) {
+      item = util.toPath('headImg', 'public/servies', item);
+      const userId = await ctx.model.UserShop.findOne({ where: { id: item.shopId } });
+      const user = await service.users.getOne(userId.user_id);
+      Object.assign(item, { user });
+    }
     return result;
   }
 

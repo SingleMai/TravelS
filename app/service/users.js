@@ -64,6 +64,9 @@ class UsersService extends Service {
         has_shop: 1, // 首页推荐的都是有服务提供的人
       },
     });
+    for (let user of users) {
+      user = util.toPath('head', 'public/avator', user)
+    }
     return users;
   }
 
@@ -97,7 +100,7 @@ class UsersService extends Service {
   }
 
   async getOne(id) {
-    const user = await this.ctx.model.Users.findOne({
+    let user = await this.ctx.model.Users.findOne({
       raw: true,
       attributes: ['id', 'head', 'name', 'sex', 'instroduction',
         'job', 'city',
@@ -109,6 +112,7 @@ class UsersService extends Service {
         'time'],
       where: { id },
     });
+    user = util.toPath('head', 'public/avator', user);
     return user;
   }
 
