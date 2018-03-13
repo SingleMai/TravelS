@@ -3,6 +3,8 @@ module.exports = app => {
   const { router } = app;
   const controller = app.controller;
   const authLogin = app.middleware.authLogin();
+
+  router.get('/', controller.index.index);
   // 轮播图相关
   router.get('/api/carousel', controller.carousel.getBySite);
   // travels 相关

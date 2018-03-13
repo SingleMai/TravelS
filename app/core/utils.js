@@ -56,7 +56,7 @@ utils.arrObj2Arr = (list, key) => {
 };
 
 utils.toPath = (key, path, list) => {
-  const serverPath = `http://172.27.12.4:7001/${path}/`;
+  const serverPath = `http://172.27.23.254:7001/${path}/`;
   if (list instanceof Array) {
     for (const i of list) {
       i[key] = `${serverPath}${i[key]}`;
