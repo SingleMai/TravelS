@@ -10,8 +10,9 @@
     "egg-scripts": "^2.1.0",
     "egg-sequelize": "^3.1.0",
     "jsonwebtoken": "^8.1.1",
-    "mysql2": "^1.5.1",
+    "mysql2": "^1.5.2",
     "nodemailer": "^4.4.2",
+    "sqlite3-offline": "^3.2.0",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
