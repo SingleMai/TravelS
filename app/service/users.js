@@ -72,8 +72,8 @@ class UsersService extends Service {
 
   async getOneMsg({ travelsLimit, travelsOffset, id }) {
     const { ctx, service } = this;
-    let user = await service.users.getOne(id);
-    user = util.toPath('head', 'public/avator', user);
+    const user = await service.users.getOne(id);
+    // user = util.toPath('head', 'public/avator', user);
     // 组装发布服务
     let shopId = await ctx.model.UserShop.findOne({
       where: {

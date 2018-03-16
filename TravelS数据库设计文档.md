@@ -1,7 +1,7 @@
 ## 数据库设计
 ### admin 后台管理人员表
 | 字段 | 类型 | 属性 | 说明 |
-|-----|------|------|--|
+|:-----:|:------:|:------:|:--:|
 | id | int(15)| PRIMARYKEY<br>AUTOINCREMENT |
 | name | varchar(16) |  | 管理员名称 |
 | account | varchar(16) | unique | 登录账号 |
@@ -10,7 +10,7 @@
 
 ### carousel 轮播图表
 | 字段 | 类型 | 属性 | 说明 |
-|-----|------|---------|------|
+|:-----:|:------:|:---------:|:------:|
 | id | int(15) | PRIMARYKEY<br>AUTOINCREMENT | |
 | title | varchar(20) |  | 轮播图的标题 |
 | content | varchar(50) | | 轮播图的描述 |
@@ -22,7 +22,7 @@
 
 ### travels圈表
 | 字段 | 类型 | 属性 | 说明 |
-|-----|------|---------|------|
+|:-----:|:------:|:---------:|:------:|
 | id | int(15) | PRIMARYKEY<br>AUTOINCREMENT | |
 | user_id | int(15) | ForeignKey | 指向`users`表的id |
 | content | text |  | 文本信息，缺省值为'' |
@@ -31,14 +31,14 @@
 
 ### travels_likes 评论点赞统计表
 | 字段 | 类型 | 属性 | 说明 |
-|-----|------|---------|------|
+|:-----:|:------:|:---------:|:------:|
 | id | int(15) | PRIMARYKEY<br>AUTOINCREMENT | |
 | travel_id | int(15) | ForeignKey | 指向`travels`的id |
 | user_id | int(15) | ForeignKey | 指向`users`的id |
 
 ### tranvels_img 保存TravelS的图片信息
 | 字段 | 类型 | 属性 | 说明 |
-|-----|------|---------|------|
+|:-----:|:------:|:---------:|:------:|
 | id | int(15) | PRIMARYKEY<br>AUTOINCREMENT | |
 | travel_id | int(15) | ForeignKey | 指向`travels`表的id |
 | travel_img | varchar(30) |  | 图片文件名 |
@@ -47,7 +47,7 @@
 
 ### tranvels_comment 保存Travels评论信息
 | 字段 | 类型 | 属性 | 说明 |
-|-----|------|---------|------|
+|:-----:|:------:|:---------:|:------:|
 | id | int(15) | PRIMARYKEY<br>AUTOINCREMENT | |
 | travels_id | int(15) | ForeignKey | 指向`travels`的id |
 | commenter | int(15) | ForeignKey | 评论人id,指向`users`的id |
@@ -57,7 +57,7 @@
 
 ### users 用户信息表
 | 字段 | 类型 | 属性 | 说明 |
-|-----|------|---------|------|
+|:-----:|:------:|:---------:|:------:|
 | id | int(15) | PRIMARYKEY<br>AUTOINCREMENT | |
 | head | varchar(30) | | 头像文件名 |
 | name | varchar(30) | unique | |
@@ -81,7 +81,7 @@
 
 ### user_card 各种认证信息表
 | 字段 | 类型 | 属性 | 说明 |
-|-----|------|---------|------|
+|:-----:|:------:|:---------:|:------:|
 | id | int(15) | PRIMARYKEY<br>AUTOINCREMENT | |
 | user_id | int(15) | Foreignkey | 指向`users`的id |
 | card_img | varchar(30) |  | 图片文件名 |
@@ -100,7 +100,7 @@
 
 ### user_likes 用户收藏
 | 字段 | 类型 | 属性 | 说明 |
-|-----|------|---------|------|
+|:-----:|:------:|:---------:|:------:|
 | id | int(15) | PRIMARYKEY<br>AUTOINCREMENT | |
 | user_id | int(15) | Foreignkey | 指向`users`的id |
 | servies_id | int(15) | Foreignkey | 指向`servies`的id |
@@ -108,14 +108,14 @@
 
 ### user_shop 用户店铺信息表
 | 字段 | 类型 | 属性 | 说明 |
-|-----|------|---------|------|
+|:-----:|:------:|:---------:|:------:|
 | id | int(15) | PRIMARYKEY<br>AUTOINCREMENT | |
 | user_id | int(15) | Foreignkey | 指向`users`的id |
 | time | time |  | 创建时间 |
 
 ### servies 服务信息表
 | 字段 | 类型 | 属性 | 说明 |
-|-----|------|---------|------|
+|:-----:|:------:|:---------:|:------:|
 | id | int(15) | PRIMARYKEY<br>AUTOINCREMENT | |
 | shop_id | int(15) | Foreignkey | 指向`shops`的id |
 | head_img | varchar(15) |  | 首图文件名 |
@@ -129,7 +129,7 @@
 
 ### servies_comment 服务评论
 | 字段 | 类型 | 属性 | 说明 |
-|-----|------|---------|------|
+|:-----:|:------:|:---------:|:------:|
 | id | int(15) | PRIMARYKEY<br>AUTOINCREMENT | |
 | servies_id | int(15) | Foreignkey | 服务，指向`servies`的id |
 | order_id | int(15) | ForeignKey | 订单,指向`orders`的id |
@@ -139,7 +139,7 @@
 
 ### servies_comment_img 服务评价图片信息
 | 字段 | 类型 | 属性 | 说明 |
-|-----|------|---------|------|
+|:-----:|:------:|:---------:|:------:|
 | id | int(15) | PRIMARYKEY<br>AUTOINCREMENT | |
 | comments_id | int(15) | ForeignKey | 指向`servies_comment`表的id |
 | servies_comment_img | varchar(30) |  | 图片文件名 |
@@ -148,7 +148,7 @@
 
 ### servies_reply 店家回复
 | 字段 | 类型 | 属性 | 说明 |
-|-----|------|---------|------|
+|:-----:|:------:|:---------:|:------:|
 | id | int(15) | PRIMARYKEY<br>AUTOINCREMENT | |
 | comments_id | int(15) | ForeignKey | 指向`servies_comment`表的id |
 | content | text |  | 评论内容 |
@@ -156,7 +156,7 @@
 
 ### servies_img 服务内容图片
 | 字段 | 类型 | 属性 | 说明 |
-|-----|------|---------|------|
+|:-----:|:------:|:---------:|:------:|
 | id | int(15) | PRIMARYKEY<br>AUTOINCREMENT | |
 | servies_id | int(15) | Foreignkey | 指向`servies`的id |
 | servies_img | varchar(30) |  | 图片文件名 |
@@ -164,13 +164,13 @@
 
 ### servies_type 服务类型映射表
 | 字段 | 类型 | 属性 | 说明 |
-|-----|------|---------|------|
+|:-----:|:------:|:---------:|:------:|
 | id | int(15) | PRIMARYKEY<br>AUTOINCREMENT | |
 | name | varchar(30) | | 服务类型（一日游、多日游、门票、酒店、演出活动、当地特产、租车） |
 
 ### orders 订单信息表
 | 字段 | 类型 | 属性 | 说明 |
-|-----|------|---------|------|
+|:-----:|:------:|:---------:|:------:|
 | id | int(15) | PRIMARYKEY<br>AUTOINCREMENT | |
 | servies_id | int(15) | Foreignkey | 服务，指向`servies`的id |
 | buyer_id | int(15) | Foreignkey | 游客，指向`users`的id |
@@ -180,7 +180,7 @@
 
 ### wallet 用户钱包
 | 字段 | 类型 | 属性 | 说明 |
-|-----|------|---------|------|
+|:-----:|:------:|:---------:|:------:|
 | id | int(15) | PRIMARYKEY<br>AUTOINCREMENT | |
 | user_id | int(15) | Foreignkey | 指向`users`的id |
 | balance | int(15) |  | 账户余额（以分为单位）|
