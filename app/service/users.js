@@ -124,7 +124,7 @@ class UsersService extends Service {
     return user.instroduction;
   }
 
-  async _getList(limit, offset) {
+  async _getList() {
     const users = await this.ctx.model.Users.findAll({
       attributes: ['id', 'head', 'name', 'sex',
         ['has_id_card', 'hasIdCard'],
@@ -133,9 +133,10 @@ class UsersService extends Service {
         ['has_drive_card', 'hasDriveCard'],
         ['has_shop', 'hasShop'],
         'time'],
-      limit,
-      offset,
     });
+    for (let user of users) {
+      user = util.toPath('head', 'public/avator', user)
+    }
     return users;
   }
 

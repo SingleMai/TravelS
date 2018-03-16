@@ -81,18 +81,8 @@ class UsersController extends Controller {
 
   // GET /backen/users
   async _getList() {
-    const { ctx, service } = this;
-    const rule = {
-      limit: 'id',
-      offset: 'id',
-    };
-    try {
-      ctx.validate(rule, ctx.query);
-    } catch (err) {
-      this.error(errCode.PARAMS_INVALID_EMPTY, err);
-    }
-    const { limit, offset } = ctx.query;
-    const result = await service.users._getList(parseInt(limit), parseInt(offset));
+    const { service } = this;
+    const result = await service.users._getList();
     this.success(result);
   }
 
