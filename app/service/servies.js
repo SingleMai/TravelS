@@ -21,7 +21,7 @@ class ServiesService extends Service {
         limit,
         offset,
         order: [['time', 'DESC']],
-        attributes: ['id', 'title', 'price', 'views', 'likes', 'time', ['shop_id', 'shopId'],
+        attributes: ['id', 'title', 'content', 'price', 'views', 'likes', 'time', ['shop_id', 'shopId'],
           ['head_img', 'headImg'],
           'type'],
       });
@@ -32,7 +32,7 @@ class ServiesService extends Service {
         offset,
         order: [['time', 'DESC']],
         where: { title: { $like: `%${query}%` } },
-        attributes: ['id', 'title', 'price', 'views', 'likes', 'time', ['shop_id', 'shopId'],
+        attributes: ['id', 'title', 'price', 'content', 'views', 'likes', 'time', ['shop_id', 'shopId'],
           ['head_img', 'headImg'],
           'type'],
       });
@@ -42,7 +42,7 @@ class ServiesService extends Service {
         offset,
         order: [['time', 'DESC']],
         where: { type: { $like: `%${query}%` } },
-        attributes: ['id', 'title', 'price', 'views', 'likes', 'time', ['shop_id', 'shopId'],
+        attributes: ['id', 'title', 'price', 'content', 'views', 'likes', 'time', ['shop_id', 'shopId'],
           ['head_img', 'headImg'],
           'type'],
       });
