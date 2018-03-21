@@ -23,6 +23,7 @@ module.exports = app => {
   // 用户相关
   router.get('/api/token', controller.users.getToken);
   router.post('/api/login', controller.users.login);
+  router.get('/api/token/update', authLogin, controller.users.updateLogin);
   router.get('/api/users', controller.users.getList);
   router.get('/api/user', controller.users.getOneMsg);
   router.get('/api/users/instroduction', controller.users.getInstroduction);

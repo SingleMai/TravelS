@@ -26,6 +26,7 @@ class TravelsController extends Controller {
       const result = await service.travels.getList({ limit, offset });
       this.success(result);
     } catch (err) {
+      console.log(err);
       this.error(errCode.PARAMS_INVALID_EMPTY);
     }
   }

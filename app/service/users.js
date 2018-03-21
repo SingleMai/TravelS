@@ -18,7 +18,6 @@ class UsersService extends Service {
     if (result === null) $this.error(errCode.EMAIL_ERROR);
     result = util.toPath('head', 'public/avator', result);
     const token = jwt.sign(this.app.config, result);
-    console.log(token);
     // yield this.ctx.$email.sendEmail({
     //   to: email,
     //   subject: 'Travels 登录验证码',
@@ -37,6 +36,22 @@ class UsersService extends Service {
     } catch (err) {
       $this.error(errCode.LOGIN_ERROR, err);
     }
+  }
+
+  * updateLogin($this) {
+    const { ctx } = this;
+    let user = yield ctx.model.Users.findOne({
+      raw: true,
+      attributes: ['id', 'name', 'email', 'head', 'sex'],
+      where: {
+        id: ctx.user.id,
+      },
+    });
+    // 用户已经被删除，该用户不能再登录
+    if (user === null) $this.error(errCode.LOGIN_ERROR);
+    user = util.toPath('head', 'public/avator', user);
+    const token = jwt.sign(this.app.config, user);
+    return { token, user };
   }
 
   async _getIdName(id) {

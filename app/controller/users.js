@@ -42,6 +42,12 @@ class UsersController extends Controller {
     this.success({ token, origData });
   }
 
+  * updateLogin() {
+    const { service } = this;
+    const result = yield service.users.updateLogin(this);
+    this.success(result);
+  }
+
   // GET /api/users
   async getList() {
     const { ctx, service } = this;
