@@ -24,6 +24,7 @@ class UsersService extends Service {
     result = result[0].toJSON()
     result = util.toPath('head', 'public/avator', result);
     const token = jwt.sign(this.app.config, result);
+    console.log(token)
     // yield this.ctx.$email.sendEmail({
     //   to: email,
     //   subject: 'Travels 登录验证码',
