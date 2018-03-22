@@ -10,5 +10,10 @@ class IndexController extends Controller {
     const res = fs.readFileSync('app/public/dist/index.html', 'utf-8');
     ctx.body = res;
   }
+  async backen() {
+    const { ctx } = this;
+    const res = fs.readFileSync('app/public/dist2/index.html', 'utf-8');
+    ctx.body = res;
+  }
 }
 module.exports = IndexController;

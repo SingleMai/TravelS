@@ -5,6 +5,7 @@ module.exports = app => {
   const authLogin = app.middleware.authLogin();
 
   router.get('/', controller.index.index);
+  router.get('/backen', controller.index.backen);
   // 轮播图相关
   router.get('/api/carousel', controller.carousel.getBySite);
   // travels 相关
