@@ -8,14 +8,20 @@ const jwt = require('../tools/jwt.js');
 class UsersService extends Service {
   // 通过邮件的方式获取token
   * getToken($this, email) {
-    let result = yield this.ctx.model.Users.findOne({
-      raw: true,
-      attributes: ['email', 'id', 'head', 'name', 'sex'],
+    let result = yield this.ctx.model.Users.findOrCreate({
       where: {
         email,
       },
+      defaults: {
+        head: 'default_avator.jpg',
+        name: util.randomString(10),
+        email,
+        has_shop: 0,
+        time: new Date()
+      },
     });
-    if (result === null) $this.error(errCode.EMAIL_ERROR);
+    // if (result === null) $this.error(errCode.EMAIL_ERROR);
+    result = result[0].toJSON()
     result = util.toPath('head', 'public/avator', result);
     const token = jwt.sign(this.app.config, result);
     // yield this.ctx.$email.sendEmail({

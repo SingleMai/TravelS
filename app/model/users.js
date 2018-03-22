@@ -20,7 +20,6 @@ module.exports = app => {
     },
     sex: {
       type: INTEGER,
-      allowNull: false,
     },
     phone: {
       type: INTEGER,
@@ -39,47 +38,36 @@ module.exports = app => {
     },
     instroduction: {
       type: STRING,
-      allowNull: false,
     },
     has_id_card: {
       type: INTEGER,
-      allowNull: false,
     },
     has_edu_card: {
       type: INTEGER,
-      allowNull: false,
     },
     has_guide_card: {
       type: INTEGER,
-      allowNull: false,
     },
     has_drive_card: {
       type: INTEGER,
-      allowNull: false,
     },
     has_shop: {
       type: INTEGER,
-      allowNull: false,
     },
     born: {
       type: DATE,
-      allowNull: false,
     },
     city: {
       type: STRING,
-      allowNull: false,
     },
     school: {
       type: STRING,
-      allowNull: false,
     },
     recommend_id: {
       type: INTEGER,
-      allowNull: false,
     },
     time: {
       type: DATE,
-      allowNull: false,
     },
   }, {
     tableName: 'users',
