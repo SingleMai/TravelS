@@ -37,7 +37,7 @@ class CarouselService extends Service {
   async getBySite(site) {
     let carousels = await this.ctx.model.Carousel.findAll({
       raw: true,
-      attributes: ['id', 'title', 'content', 'carousel', 'link'],
+      attributes: ['id', 'title', 'content', 'carousel', 'link', 'weight'],
       order: [['weight', 'DESC']],
       where: {
         site,

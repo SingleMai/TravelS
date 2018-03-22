@@ -56,8 +56,8 @@ utils.arrObj2Arr = (list, key) => {
 };
 
 utils.toPath = (key, path, list) => {
-  // const serverPath = `http://192.168.0.104:7001/${path}/`;
-  const serverPath = `/${path}/`;
+  const serverPath = `http://192.168.0.104:7001/${path}/`;
+  // const serverPath = `/${path}/`;
   if (list instanceof Array) {
     for (const i of list) {
       i[key] = `${serverPath}${i[key]}`;

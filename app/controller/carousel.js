@@ -5,6 +5,7 @@ const fs = require('fs');
 const Controller = require('../core/baseController');
 const errCode = require('../core/errCode');
 const sendToWormhole = require('stream-wormhole');
+const awaitWriteStream = require('await-stream-ready').write;
 const { isPic, getDateTime } = require('../core/utils');
 
 class CarouselController extends Controller {
@@ -41,10 +42,11 @@ class CarouselController extends Controller {
       await sendToWormhole(stream);
       this.error(errCode.OBJECT_EXITS);
     }
-    await service.carousel.create(data);
+    const result = await service.carousel.create(data);
     const filePath = path.join(__dirname, '../../app/public/carousel');
-    fs.writeFileSync(`${filePath}${path.sep}${name}`, stream);
-    this.success();
+    const writeStream = fs.createWriteStream(`${filePath}${path.sep}${name}`);
+    await awaitWriteStream(stream.pipe(writeStream));
+    this.success(result);
   }
   // DELETE /backen/carousel/:id
   async del() {
