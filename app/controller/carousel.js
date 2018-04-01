@@ -14,7 +14,8 @@ class CarouselController extends Controller {
     const { ctx, service } = this;
     const stream = await ctx.getFileStream();
     const name = `${getDateTime()}@@${path.basename(stream.filename)}`;
-    if (!isPic(stream)) { // 判断是否图片类型
+    if (!isPic(stream)) {
+      // 判断是否图片类型
       // 必须将上传的文件流消费掉，要不然浏览器响应会卡死
       await sendToWormhole(stream);
       this.error(errCode.FILES_TYPE_INVALID);
@@ -37,7 +38,10 @@ class CarouselController extends Controller {
     data.title = data.title ? data.title : '';
     data.content = data.content ? data.content : '';
     data.site = data.site ? data.site : 1;
-    const hadExits = await service.carousel.getCarouselByWeight(data.weight, data.site);
+    const hadExits = await service.carousel.getCarouselByWeight(
+      data.weight,
+      data.site
+    );
     if (hadExits !== null) {
       await sendToWormhole(stream);
       this.error(errCode.OBJECT_EXITS);
